@@ -13,7 +13,7 @@ export class HomeComponent {
   output = '';
 
   async run() {
-    const prompt = 'Write a story about a AI and magic';
+    const prompt = 'Write a simple angular e2e test with Playwright.';
     const result = await this.model.generateContent(prompt);
     const response = await result.response;
     this.output = response.text();
