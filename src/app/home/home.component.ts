@@ -18,18 +18,29 @@ import { environment } from 'src/environments/environment';
 export class HomeComponent {
   genAI = new GoogleGenerativeAI(environment.API_KEY);
   model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-  output =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n' +
-    'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n' +
-    'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n' +
-    'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+  output = '';
 
   form = new FormControl('', [Validators.required]);
 
+  constructor() {
+    this.form.setValue(
+      'import { Component } from "@angular/core"\n' +
+        '@Component({\n' +
+        '   selector: "app-root",\n' +
+        '   templateUrl: "./app.component.html",\n' +
+        '   styleUrls: ["./app.component.css"]\n' +
+        '})\n' +
+        'export class AppComponent {\n' +
+        '   title = "test-generation-app";\n' +
+        '}'
+    );
+  }
+
   async run() {
     const prompt =
-      'Write an Angular Unit Test with Playwright. Return only the pure code. Here is my code: ' +
+      'Write an Angular Test with Playwright. Return only the pure code. Here is my code: ' +
       this.form.value;
+    this.output = 'Generating code...';
     const result = await this.model.generateContent(prompt);
     const response = await result.response;
     this.output = response.text();

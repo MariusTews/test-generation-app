@@ -6,11 +6,13 @@
         [formControl]="form"
         cdkTextareaAutosize
         #autosize="cdkTextareaAutosize"
-        cdkAutosizeMinRows="10"
+        cdkAutosizeMinRows="20"
         id="input-area"
       ></textarea>
     </mat-form-field>
-    <button (click)="run()" class="btn btn-primary my-3">Generate test</button>
+    <button (click)="run()" class="btn btn-primary" id="generate-button">
+      Generate test
+    </button>
     <pre>{{ output }}</pre>
   </div>
 </div>
