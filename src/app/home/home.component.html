@@ -1,4 +1,16 @@
 <div id="content">
-  <button (click)="run()" class="btn btn-primary">Generate test</button>
-  <label>{{ output }}</label>
+  <div id="main-container">
+    <mat-form-field id="input-field">
+      <textarea
+        matInput
+        [formControl]="form"
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="10"
+        id="input-area"
+      ></textarea>
+    </mat-form-field>
+    <button (click)="run()" class="btn btn-primary my-3">Generate test</button>
+    <pre>{{ output }}</pre>
+  </div>
 </div>
