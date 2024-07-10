@@ -13,6 +13,13 @@
     <button (click)="run()" class="btn btn-primary" id="generate-button">
       Generate test
     </button>
-    <pre>{{ output }}</pre>
+    <div id="output-control" *ngIf="outputReceived">
+      <button class="btn btn-secondary mx-1" (click)="showOutput()">
+        Show code
+      </button>
+      <button class="btn btn-secondary mx-1">Copy code</button>
+      <button class="btn btn-secondary mx-1">Create file</button>
+    </div>
+    <pre>{{ outputText }}</pre>
   </div>
 </div>
