@@ -21,8 +21,8 @@ export class HomeComponent {
   output = '';
   outputText = '';
   outputReceived = false;
-  showCodeButtonText = 'Show code';
-  copyCodeButtonText = 'Copy code';
+  showCodeButtonText = 'Show';
+  copyCodeButtonText = 'Copy';
 
   placeholder =
     'import { Component } from "@angular/core"\n' +
@@ -43,17 +43,16 @@ export class HomeComponent {
 
   async run() {
     this.outputReceived = false;
-    this.showCodeButtonText = 'Show code';
-    this.copyCodeButtonText = 'Copy code';
+    this.showCodeButtonText = 'Show';
+    this.copyCodeButtonText = 'Copy';
     const prompt =
-      'Write a test with Playwright for Angular. Return only the pure code. Here is my code: ' +
+      'Write a test with Playwright for Angular. Return only the code. Here is my code:\n' +
       this.form.value;
     this.outputText = 'Generating code...';
     const result = await this.model.generateContent(prompt);
     const response = result.response;
     const lines = response.text().split('\n');
     this.output = lines.slice(1, lines.length - 1).join('\n');
-    // this.output = this.placeholder;
     this.outputReceived = true;
     this.outputText = '';
   }
@@ -61,7 +60,7 @@ export class HomeComponent {
   showOutput() {
     this.outputText = this.outputText == '' ? this.output : '';
     this.showCodeButtonText =
-      this.showCodeButtonText == 'Show code' ? 'Hide code' : 'Show code';
+      this.showCodeButtonText == 'Show' ? 'Hide' : 'Show';
   }
 
   copyCode() {
