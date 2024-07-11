@@ -21,9 +21,18 @@
 }
 
 #generate-button {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.75em;
 }
 
 #output-control {
   margin-bottom: 2em;
+  display: flex;
+  justify-content: center;
+}
+
+.output-control-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 9em;
 }

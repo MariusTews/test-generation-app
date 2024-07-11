@@ -21,48 +21,62 @@ export class HomeComponent {
   output = '';
   outputText = '';
   outputReceived = false;
+  showCodeButtonText = 'Show code';
+  copyCodeButtonText = 'Copy code';
+
+  placeholder =
+    'import { Component } from "@angular/core"\n' +
+    '@Component({\n' +
+    '   selector: "app-root",\n' +
+    '   templateUrl: "./app.component.html",\n' +
+    '   styleUrls: ["./app.component.css"]\n' +
+    '})\n' +
+    'export class AppComponent {\n' +
+    '   title = "test-generation-app";\n' +
+    '}';
 
   form = new FormControl('', [Validators.required]);
 
   constructor() {
-    this.form.setValue(
-      'import { Component } from "@angular/core"\n' +
-        '@Component({\n' +
-        '   selector: "app-root",\n' +
-        '   templateUrl: "./app.component.html",\n' +
-        '   styleUrls: ["./app.component.css"]\n' +
-        '})\n' +
-        'export class AppComponent {\n' +
-        '   title = "test-generation-app";\n' +
-        '}'
-    );
+    this.form.setValue(this.placeholder);
   }
 
   async run() {
     this.outputReceived = false;
+    this.showCodeButtonText = 'Show code';
+    this.copyCodeButtonText = 'Copy code';
     const prompt =
-      'Write an Angular Test with Playwright. Return only the pure code. Here is my code: ' +
+      'Write a test with Playwright for Angular. Return only the pure code. Here is my code: ' +
       this.form.value;
     this.outputText = 'Generating code...';
     const result = await this.model.generateContent(prompt);
-    const response = await result.response;
+    const response = result.response;
     const lines = response.text().split('\n');
     this.output = lines.slice(1, lines.length - 1).join('\n');
-    // this.output = 'import { Component } from "@angular/core"\n' +
-    //     '@Component({\n' +
-    //     '   selector: "app-root",\n' +
-    //     '   templateUrl: "./app.component.html",\n' +
-    //     '   styleUrls: ["./app.component.css"]\n' +
-    //     '})\n' +
-    //     'export class AppComponent {\n' +
-    //     '   title = "test-generation-app";\n' +
-    //     '}'
+    // this.output = this.placeholder;
     this.outputReceived = true;
     this.outputText = '';
   }
 
   showOutput() {
-    this.outputText = this.output;
+    this.outputText = this.outputText == '' ? this.output : '';
+    this.showCodeButtonText =
+      this.showCodeButtonText == 'Show code' ? 'Hide code' : 'Show code';
+  }
+
+  copyCode() {
+    this.copyCodeButtonText = 'Copied!';
+  }
+
+  createFile() {
+    const newBlob = new Blob([this.output], {
+      type: 'application/x-typescript',
+    });
+    const data = window.URL.createObjectURL(newBlob);
+    const link = document.createElement('a');
+    link.href = data;
+    link.download = 'e2e.spec.ts';
+    link.click();
   }
 
   private _injector = inject(Injector);

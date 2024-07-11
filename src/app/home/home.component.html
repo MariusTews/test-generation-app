@@ -14,11 +14,26 @@
       Generate test
     </button>
     <div id="output-control" *ngIf="outputReceived">
-      <button class="btn btn-secondary mx-1" (click)="showOutput()">
-        Show code
+      <button
+        class="btn btn-secondary mx-1 output-control-button"
+        (click)="showOutput()"
+      >
+        <mat-icon class="mx-1">code</mat-icon> {{ showCodeButtonText }}
       </button>
-      <button class="btn btn-secondary mx-1">Copy code</button>
-      <button class="btn btn-secondary mx-1">Create file</button>
+      <button
+        class="btn btn-secondary mx-1 output-control-button"
+        [cdkCopyToClipboard]="output"
+        (click)="copyCode()"
+      >
+        <mat-icon class="mx-1">file_copy</mat-icon> {{ copyCodeButtonText }}
+      </button>
+      <button
+        class="btn btn-secondary mx-1 output-control-button"
+        (click)="createFile()"
+      >
+        <mat-icon class="mx-1"> insert_drive_file</mat-icon>
+        Create file
+      </button>
     </div>
     <pre>{{ outputText }}</pre>
   </div>
