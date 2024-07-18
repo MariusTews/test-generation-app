@@ -46,7 +46,7 @@ export class HomeComponent {
     this.showCodeButtonText = 'Show';
     this.copyCodeButtonText = 'Copy';
     const prompt =
-      'Write a test with Playwright for Angular. Return only the code. Here is my code:\n' +
+      'Write a test with Playwright for Angular. Return only the code. First create test data. Here is my code:\n' +
       this.form.value;
     this.outputText = 'Generating code...';
     const result = await this.model.generateContent(prompt);
