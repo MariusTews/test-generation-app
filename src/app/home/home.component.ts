@@ -30,68 +30,100 @@ export class HomeComponent {
   inputTypeForm = new FormControl('text', []);
 
   handleFileInput(event: any) {
-    let file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsText(file, 'UTF-8');
-    reader.onload = (e) => {
-      if (e.target != null) {
-        const parts = file.name.split('.');
-        if (parts.length !== 3) {
-          return;
-        }
-        if (parts[1] !== 'component') {
-          return;
-        }
-        let duplicate = false;
-        let addTo = null;
-        for (let item of this.inputFiles) {
-          if (item.name === parts[0]) {
-            if (
-              (parts[2] === 'html' && item.HTMLFile) ||
-              (parts[2] === 'ts' && item.TSFile)
-            ) {
-              duplicate = true;
-            } else {
-              addTo = item;
+    for (let file of event.target.files) {
+      const reader = new FileReader();
+      reader.readAsText(file, 'UTF-8');
+      reader.onload = (e) => {
+        if (e.target != null) {
+          const parts = file.name.split('.');
+          if (parts.length !== 3) {
+            return;
+          }
+          if (parts[1] !== 'component') {
+            return;
+          }
+          let duplicate = false;
+          let addTo = null;
+          for (let item of this.inputFiles) {
+            if (item.name === parts[0]) {
+              if (
+                (parts[2] === 'html' && item.HTMLFile) ||
+                (parts[2] === 'ts' && item.TSFile)
+              ) {
+                duplicate = true;
+              } else {
+                addTo = item;
+              }
             }
           }
-        }
-        if (duplicate) {
-          return;
-        }
-        const item: ComponentItem =
-          addTo === null ? new ComponentItem() : addTo;
-        item.name = parts[0];
-        if (parts[2] === 'html') {
-          item.HTMLFile = e.target.result;
-        } else if (parts[2] === 'ts') {
-          item.TSFile = e.target.result;
-        }
-        if (addTo === null) {
-          this.inputFiles.push(item);
-        }
-        let input = '';
-        for (let item of this.inputFiles) {
-          input += item.name + ' component:\n\n';
-          if (item.HTMLFile) {
-            input += item.HTMLFile + '\n\n';
+          if (duplicate) {
+            return;
           }
-          if (item.TSFile) {
-            input += item.TSFile + '\n\n';
+          const item: ComponentItem =
+            addTo === null ? new ComponentItem() : addTo;
+          item.name = parts[0];
+          if (parts[2] === 'html') {
+            item.HTMLFile = e.target.result;
+          } else if (parts[2] === 'ts') {
+            item.TSFile = e.target.result;
           }
+          if (addTo === null) {
+            this.inputFiles.push(item);
+          }
+          this.textInputForm.setValue(this.generateCodeInput());
         }
-        this.textInputForm.setValue(input);
+      };
+    }
+  }
+
+  generateCodeInput(): string {
+    let input = '';
+    for (let item of this.inputFiles) {
+      input += item.name + ' component:\n\n';
+      if (item.HTMLFile) {
+        input += item.HTMLFile + '\n\n';
       }
-    };
+      if (item.TSFile) {
+        input += item.TSFile + '\n\n';
+      }
+    }
+    return input;
+  }
+
+  getComponentLabel(item: ComponentItem): string {
+    let label = '';
+    label += item.name;
+    if (item.HTMLFile && item.TSFile) {
+      label += ' (HTML, TS)';
+    } else if (item.HTMLFile) {
+      label += ' (HTML)';
+    } else if (item.TSFile) {
+      label += ' (TS)';
+    }
+    return label;
+  }
+
+  removeComponent(item: ComponentItem) {
+    this.inputFiles = this.inputFiles.filter((element) => {
+      return element !== item;
+    });
+    this.textInputForm.setValue(this.generateCodeInput());
   }
 
   async run() {
     this.outputReceived = false;
     this.showCodeButtonText = 'Show';
     this.copyCodeButtonText = 'Copy';
+    let codeInput: any = '';
+    if (this.inputTypeForm.value === 'text') {
+      codeInput = this.textInputForm.value;
+    } else if (this.inputTypeForm.value === 'files') {
+      codeInput = this.generateCodeInput();
+    }
     const prompt =
-      'Write a test with Playwright for Angular. Return only the code. First create test data. Here is my code:\n' +
-      this.textInputForm.value;
+      'Write a test with Playwright for Angular. Return only the code. Here is my code:\n' +
+      codeInput;
+    console.log(codeInput);
     this.outputText = 'Generating code...';
     const result = await this.model.generateContent(prompt);
     const response = result.response;

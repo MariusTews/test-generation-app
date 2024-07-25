@@ -23,6 +23,10 @@ mat-button-toggle-group {
 #file-input {
   margin-top: 1em;
   margin-bottom: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 input[type="file"] {
@@ -40,6 +44,19 @@ label[for="files1"] {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+}
+
+#component-files {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 1em;
+}
+
+.component-item {
+  display: flex;
+  align-items: center;
+  margin-block: 0.25em;
 }
 
 #input-area {
