@@ -21,7 +21,16 @@
         ></textarea>
       </mat-form-field>
     </div>
-    <div id="file-input" *ngIf="inputTypeForm.value == 'files'">test</div>
+    <div id="file-input" *ngIf="inputTypeForm.value == 'files'">
+      <span>Components</span>
+      <label for="files1" class="btn btn-outline-success mx-2">+</label>
+      <input
+        type="file"
+        (change)="handleFileInput($event)"
+        id="files1"
+        accept=".html, .ts"
+      />
+    </div>
     <button (click)="run()" class="btn btn-primary" id="generate-button">
       Generate test
     </button>

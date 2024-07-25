@@ -42,6 +42,17 @@ export class HomeComponent {
     this.textInputForm.setValue(this.placeholder);
   }
 
+  handleFileInput(event: any) {
+    let file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsText(file, 'UTF-8');
+    reader.onload = (e) => {
+      if (e.target != null) {
+        console.log(e.target.result);
+      }
+    };
+  }
+
   async run() {
     this.outputReceived = false;
     this.showCodeButtonText = 'Show';
