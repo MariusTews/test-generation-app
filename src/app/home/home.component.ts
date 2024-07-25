@@ -153,12 +153,16 @@ export class HomeComponent {
       'Write a test with Playwright for Angular. Return only the code. Here is my code:\n' +
       codeInput;
     this.outputText = 'Generating code...';
-    const result = await this.model.generateContent(prompt);
-    const response = result.response;
-    const lines = response.text().split('\n');
-    this.output = lines.slice(1, lines.length - 1).join('\n');
-    this.outputReceived = true;
-    this.outputText = '';
+    try {
+      const result = await this.model.generateContent(prompt);
+      const response = result.response;
+      const lines = response.text().split('\n');
+      this.output = lines.slice(1, lines.length - 1).join('\n');
+      this.outputReceived = true;
+      this.outputText = '';
+    } catch (e) {
+      this.outputText = 'Something went wrong!';
+    }
   }
 
   showOutput() {
