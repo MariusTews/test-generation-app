@@ -9,6 +9,7 @@ import {
 import { FormControl, Validators } from '@angular/forms';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { environment } from 'src/environments/environment';
+import ComponentItem from 'src/util/component-item';
 
 @Component({
   selector: 'app-home',
@@ -18,29 +19,15 @@ import { environment } from 'src/environments/environment';
 export class HomeComponent {
   genAI = new GoogleGenerativeAI(environment.API_KEY);
   model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  inputFiles: ComponentItem[] = [];
   output = '';
   outputText = '';
   outputReceived = false;
   showCodeButtonText = 'Show';
   copyCodeButtonText = 'Copy';
 
-  placeholder =
-    'import { Component } from "@angular/core"\n' +
-    '@Component({\n' +
-    '   selector: "app-root",\n' +
-    '   templateUrl: "./app.component.html",\n' +
-    '   styleUrls: ["./app.component.css"]\n' +
-    '})\n' +
-    'export class AppComponent {\n' +
-    '   title = "test-generation-app";\n' +
-    '}';
-
   textInputForm = new FormControl('', [Validators.required]);
   inputTypeForm = new FormControl('text', []);
-
-  constructor() {
-    this.textInputForm.setValue(this.placeholder);
-  }
 
   handleFileInput(event: any) {
     let file = event.target.files[0];
@@ -48,7 +35,52 @@ export class HomeComponent {
     reader.readAsText(file, 'UTF-8');
     reader.onload = (e) => {
       if (e.target != null) {
-        console.log(e.target.result);
+        const parts = file.name.split('.');
+        if (parts.length !== 3) {
+          return;
+        }
+        if (parts[1] !== 'component') {
+          return;
+        }
+        let duplicate = false;
+        let addTo = null;
+        for (let item of this.inputFiles) {
+          if (item.name === parts[0]) {
+            if (
+              (parts[2] === 'html' && item.HTMLFile) ||
+              (parts[2] === 'ts' && item.TSFile)
+            ) {
+              duplicate = true;
+            } else {
+              addTo = item;
+            }
+          }
+        }
+        if (duplicate) {
+          return;
+        }
+        const item: ComponentItem =
+          addTo === null ? new ComponentItem() : addTo;
+        item.name = parts[0];
+        if (parts[2] === 'html') {
+          item.HTMLFile = e.target.result;
+        } else if (parts[2] === 'ts') {
+          item.TSFile = e.target.result;
+        }
+        if (addTo === null) {
+          this.inputFiles.push(item);
+        }
+        let input = '';
+        for (let item of this.inputFiles) {
+          input += item.name + ' component:\n\n';
+          if (item.HTMLFile) {
+            input += item.HTMLFile + '\n\n';
+          }
+          if (item.TSFile) {
+            input += item.TSFile + '\n\n';
+          }
+        }
+        this.textInputForm.setValue(input);
       }
     };
   }
