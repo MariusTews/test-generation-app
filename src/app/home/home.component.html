@@ -5,8 +5,12 @@
       aria-label="Input"
       [formControl]="inputTypeForm"
     >
-      <mat-button-toggle value="text">Text</mat-button-toggle>
-      <mat-button-toggle value="files">Files</mat-button-toggle>
+      <mat-button-toggle value="files" class="input-type"
+        ><mat-icon class="mx-1"> insert_drive_file</mat-icon></mat-button-toggle
+      >
+      <mat-button-toggle value="text" class="input-type"
+        ><mat-icon class="mx-1">code</mat-icon></mat-button-toggle
+      >
     </mat-button-toggle-group>
     <div id="text-input" *ngIf="inputTypeForm.value == 'text'">
       <mat-form-field id="input-field">
@@ -23,9 +27,11 @@
       </mat-form-field>
     </div>
     <div id="file-input" *ngIf="inputTypeForm.value == 'files'">
-      <div class="file-area">
+      <div class="add-file-area">
         <span>Components</span>
-        <label for="files1" class="btn btn-outline-success mx-2">+</label>
+        <label for="files1" class="btn btn-outline-success add-file-button"
+          >+</label
+        >
         <input
           type="file"
           (change)="handleComponentFileInput($event)"
@@ -44,9 +50,11 @@
           </div>
         </div>
       </div>
-      <div class="file-area">
-        <span>Other code files</span>
-        <label for="files2" class="btn btn-outline-success mx-2">+</label>
+      <div class="add-file-area">
+        <span>Other files</span>
+        <label for="files2" class="btn btn-outline-success add-file-button"
+          >+</label
+        >
         <input
           type="file"
           (change)="handleOtherFileInput($event)"

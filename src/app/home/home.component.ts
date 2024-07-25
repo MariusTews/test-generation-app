@@ -29,7 +29,7 @@ export class HomeComponent {
   copyCodeButtonText = 'Copy';
 
   textInputForm = new FormControl('', [Validators.required]);
-  inputTypeForm = new FormControl('text', []);
+  inputTypeForm = new FormControl('files', []);
 
   handleComponentFileInput(event: any) {
     for (let file of event.target.files) {
