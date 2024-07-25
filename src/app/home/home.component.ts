@@ -35,10 +35,11 @@ export class HomeComponent {
     '   title = "test-generation-app";\n' +
     '}';
 
-  form = new FormControl('', [Validators.required]);
+  textInputForm = new FormControl('', [Validators.required]);
+  inputTypeForm = new FormControl('text', []);
 
   constructor() {
-    this.form.setValue(this.placeholder);
+    this.textInputForm.setValue(this.placeholder);
   }
 
   async run() {
@@ -47,7 +48,7 @@ export class HomeComponent {
     this.copyCodeButtonText = 'Copy';
     const prompt =
       'Write a test with Playwright for Angular. Return only the code. First create test data. Here is my code:\n' +
-      this.form.value;
+      this.textInputForm.value;
     this.outputText = 'Generating code...';
     const result = await this.model.generateContent(prompt);
     const response = result.response;

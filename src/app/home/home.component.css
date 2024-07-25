@@ -11,6 +11,11 @@
   align-items: center;
 }
 
+mat-button-toggle-group {
+  margin-bottom: 1em;
+}
+
+#text-input,
 #input-field {
   width: 100%;
 }
