@@ -10,6 +10,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { environment } from 'src/environments/environment';
 import ComponentItem from 'src/util/component-item';
+import OtherCodeItem from 'src/util/other-code-item';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ import ComponentItem from 'src/util/component-item';
 export class HomeComponent {
   genAI = new GoogleGenerativeAI(environment.API_KEY);
   model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-  inputFiles: ComponentItem[] = [];
+  componentFiles: ComponentItem[] = [];
+  otherFiles: OtherCodeItem[] = [];
   output = '';
   outputText = '';
   outputReceived = false;
@@ -29,7 +31,7 @@ export class HomeComponent {
   textInputForm = new FormControl('', [Validators.required]);
   inputTypeForm = new FormControl('text', []);
 
-  handleFileInput(event: any) {
+  handleComponentFileInput(event: any) {
     for (let file of event.target.files) {
       const reader = new FileReader();
       reader.readAsText(file, 'UTF-8');
@@ -44,7 +46,7 @@ export class HomeComponent {
           }
           let duplicate = false;
           let addTo = null;
-          for (let item of this.inputFiles) {
+          for (let item of this.componentFiles) {
             if (item.name === parts[0]) {
               if (
                 (parts[2] === 'html' && item.HTMLFile) ||
@@ -68,8 +70,24 @@ export class HomeComponent {
             item.TSFile = e.target.result;
           }
           if (addTo === null) {
-            this.inputFiles.push(item);
+            this.componentFiles.push(item);
           }
+          this.textInputForm.setValue(this.generateCodeInput());
+        }
+      };
+    }
+  }
+
+  handleOtherFileInput(event: any) {
+    for (let file of event.target.files) {
+      const reader = new FileReader();
+      reader.readAsText(file, 'UTF-8');
+      reader.onload = (e) => {
+        if (e.target != null) {
+          const item: OtherCodeItem = new OtherCodeItem();
+          item.name = file.name;
+          item.content = e.target.result;
+          this.otherFiles.push(item);
           this.textInputForm.setValue(this.generateCodeInput());
         }
       };
@@ -78,7 +96,7 @@ export class HomeComponent {
 
   generateCodeInput(): string {
     let input = '';
-    for (let item of this.inputFiles) {
+    for (let item of this.componentFiles) {
       input += item.name + ' component:\n\n';
       if (item.HTMLFile) {
         input += item.HTMLFile + '\n\n';
@@ -86,6 +104,10 @@ export class HomeComponent {
       if (item.TSFile) {
         input += item.TSFile + '\n\n';
       }
+    }
+    for (let item of this.otherFiles) {
+      input += item.name + '\n\n';
+      input += item.content + '\n\n';
     }
     return input;
   }
@@ -104,7 +126,14 @@ export class HomeComponent {
   }
 
   removeComponent(item: ComponentItem) {
-    this.inputFiles = this.inputFiles.filter((element) => {
+    this.componentFiles = this.componentFiles.filter((element) => {
+      return element !== item;
+    });
+    this.textInputForm.setValue(this.generateCodeInput());
+  }
+
+  removeFile(item: OtherCodeItem) {
+    this.otherFiles = this.otherFiles.filter((element) => {
       return element !== item;
     });
     this.textInputForm.setValue(this.generateCodeInput());
@@ -123,7 +152,6 @@ export class HomeComponent {
     const prompt =
       'Write a test with Playwright for Angular. Return only the code. Here is my code:\n' +
       codeInput;
-    console.log(codeInput);
     this.outputText = 'Generating code...';
     const result = await this.model.generateContent(prompt);
     const response = result.response;

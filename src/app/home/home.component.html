@@ -23,24 +23,43 @@
       </mat-form-field>
     </div>
     <div id="file-input" *ngIf="inputTypeForm.value == 'files'">
-      <div>
+      <div class="file-area">
         <span>Components</span>
         <label for="files1" class="btn btn-outline-success mx-2">+</label>
         <input
           type="file"
-          (change)="handleFileInput($event)"
+          (change)="handleComponentFileInput($event)"
           id="files1"
           accept=".html, .ts"
           multiple
         />
       </div>
-      <div id="component-files">
-        <div *ngFor="let item of inputFiles">
-          <div class="component-item">
+      <div class="file-items">
+        <div *ngFor="let item of componentFiles">
+          <div class="file-item">
             <span>{{ getComponentLabel(item) }}</span>
             <mat-icon (click)="removeComponent(item)" class="mx-1"
               >delete</mat-icon
             >
+          </div>
+        </div>
+      </div>
+      <div class="file-area">
+        <span>Other code files</span>
+        <label for="files2" class="btn btn-outline-success mx-2">+</label>
+        <input
+          type="file"
+          (change)="handleOtherFileInput($event)"
+          id="files2"
+          accept=".html, .ts"
+          multiple
+        />
+      </div>
+      <div class="file-items">
+        <div *ngFor="let item of otherFiles">
+          <div class="file-item">
+            <span>{{ item.name }}</span>
+            <mat-icon (click)="removeFile(item)" class="mx-1">delete</mat-icon>
           </div>
         </div>
       </div>
