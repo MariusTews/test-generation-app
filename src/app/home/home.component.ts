@@ -6,7 +6,7 @@ import {
   Injector,
   ViewChild,
 } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { environment } from 'src/environments/environment';
 import ComponentItem from 'src/util/component-item';
@@ -28,8 +28,47 @@ export class HomeComponent {
   showCodeButtonText = 'Show';
   copyCodeButtonText = 'Copy';
 
-  textInputForm = new FormControl('', [Validators.required]);
+  textInputForm = new FormControl('', []);
   inputTypeForm = new FormControl('files', []);
+
+  promptInit =
+    'Write an end-to-end test for an Angular application using the Playwright test framework. ' +
+    'Assume that the application is running on http://localhost:4200/. ' +
+    'Assume that you are an authorized, already logged in user of the application. ' +
+    'Use locators that are resilient to changes in the DOM. ' +
+    'If you need additional information or code to generate a good test, then prompt me for it and start your answer with #nocode. ' +
+    'If your answer is the final test code, return only the code and start your answer with #code. ' +
+    'Here is my code:\n';
+
+  constructor() {}
+
+  async run() {
+    this.outputReceived = false;
+    this.showCodeButtonText = 'Show';
+    this.copyCodeButtonText = 'Copy';
+    let codeInput: any = '';
+    if (this.inputTypeForm.value === 'text') {
+      codeInput = this.textInputForm.value;
+    } else if (this.inputTypeForm.value === 'files') {
+      codeInput = this.generateCodeInput();
+    }
+    const prompt = this.promptInit + codeInput;
+    this.outputText = 'Generating code...';
+    try {
+      const result = await this.model.generateContent(prompt);
+      const response = result.response;
+      const lines = response.text().split('\n');
+      if (lines[0] === '#code') {
+        this.output = lines.slice(2, lines.length - 1).join('\n');
+      } else if (lines[0] === '#nocode') {
+        this.output = lines.slice(1, lines.length).join('\n');
+      }
+      this.outputReceived = true;
+      this.outputText = '';
+    } catch (e) {
+      this.outputText = 'Something went wrong!';
+    }
+  }
 
   handleComponentFileInput(event: any) {
     for (let file of event.target.files) {
@@ -139,32 +178,6 @@ export class HomeComponent {
     this.textInputForm.setValue(this.generateCodeInput());
   }
 
-  async run() {
-    this.outputReceived = false;
-    this.showCodeButtonText = 'Show';
-    this.copyCodeButtonText = 'Copy';
-    let codeInput: any = '';
-    if (this.inputTypeForm.value === 'text') {
-      codeInput = this.textInputForm.value;
-    } else if (this.inputTypeForm.value === 'files') {
-      codeInput = this.generateCodeInput();
-    }
-    const prompt =
-      'Write a test with Playwright for Angular. Return only the code. Here is my code:\n' +
-      codeInput;
-    this.outputText = 'Generating code...';
-    try {
-      const result = await this.model.generateContent(prompt);
-      const response = result.response;
-      const lines = response.text().split('\n');
-      this.output = lines.slice(1, lines.length - 1).join('\n');
-      this.outputReceived = true;
-      this.outputText = '';
-    } catch (e) {
-      this.outputText = 'Something went wrong!';
-    }
-  }
-
   showOutput() {
     this.outputText = this.outputText == '' ? this.output : '';
     this.showCodeButtonText =
@@ -202,4 +215,40 @@ export class HomeComponent {
       }
     );
   }
+
+  // public getCookie(cookieName: string) {
+  //   let name = cookieName + '=';
+  //   let decodedCookie = decodeURIComponent(document.cookie);
+  //   let ca = decodedCookie.split(';');
+  //   for (let i = 0; i < ca.length; i++) {
+  //     let c = ca[i];
+  //     while (c.charAt(0) == ' ') {
+  //       c = c.substring(1);
+  //     }
+  //     if (c.indexOf(name) == 0) {
+  //       return c.substring(name.length, c.length);
+  //     }
+  //   }
+  //   return '';
+  // }
+
+  // public setCookies() {
+  //   let string = '';
+  //   for (let element of this.componentFiles) {
+  //     string += element.name;
+  //     string += '#';
+  //     string += element.HTMLFile;
+  //     string += '#';
+  //     string += element.TSFile;
+  //     string += '##';
+  //   }
+  //   string += '##';
+  //   for (let element of this.otherFiles) {
+  //     string += element.name;
+  //     string += '#';
+  //     string += element.content;
+  //     string += '##';
+  //   }
+  //   document.cookie = `files=${string}`;
+  // }
 }
