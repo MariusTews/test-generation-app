@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -20,6 +21,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatInputModule,
     MatIconModule,
     MatButtonToggleModule,
+    MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
     ClipboardModule,

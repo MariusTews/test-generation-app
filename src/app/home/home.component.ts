@@ -30,15 +30,23 @@ export class HomeComponent {
 
   textInputForm = new FormControl('', []);
   inputTypeForm = new FormControl('files', []);
+  isErrorForm = new FormControl(false, []);
 
   promptInit =
     'Write an end-to-end test for an Angular application using the Playwright test framework. ' +
     'Assume that the application is running on http://localhost:4200/. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
     'Use locators that are resilient to changes in the DOM. ' +
-    'If you need additional information or code to generate a good test, then prompt me for it and start your answer with #nocode. ' +
+    'Set the test timeout limit to 10 seconds. ' +
+    'If you need additional information or code to generate a good test, then prompt me for it. ' +
+    'Start your answer with #nocode, if your answer is not the final test code. ' +
     'If your answer is the final test code, return only the code and start your answer with #code. ' +
     'Here is my code:\n';
+
+  errorPromptInit =
+    'When I run the test, it results in an error. ' +
+    'Please try to fix the error by changing the generated test code. ' +
+    'This is the error message:\n';
 
   constructor() {}
 
@@ -52,8 +60,13 @@ export class HomeComponent {
     } else if (this.inputTypeForm.value === 'files') {
       codeInput = this.generateCodeInput();
     }
-    const prompt = this.promptInit + codeInput;
-    this.outputText = 'Generating code...';
+    let prompt = '';
+    if (this.inputTypeForm.value === 'text' && this.isErrorForm.value) {
+      prompt = this.errorPromptInit + codeInput;
+    } else {
+      prompt = this.promptInit + codeInput;
+    }
+    this.outputText = 'Generating answer...';
     try {
       const result = await this.model.generateContent(prompt);
       const response = result.response;
