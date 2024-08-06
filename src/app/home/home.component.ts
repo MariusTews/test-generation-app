@@ -34,11 +34,13 @@ export class HomeComponent {
 
   promptInit =
     'Write an end-to-end test for an Angular application using the Playwright test framework. ' +
+    'Try to find critical paths in the scope of the components I provided. ' +
+    'Write one test for each critical path. ' +
     'Assume that the application is running on http://localhost:4200/. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
     'Use locators that are resilient to changes in the DOM. ' +
     'If possible, every locator should find the corresponding element by its role and text or placeholder. ' +
-    'Please use locators such as getByLabel, getByRole or getByPlaceholder. ' +
+    'Use locators such as getByLabel, getByRole or getByPlaceholder. ' +
     'Do not create custom page objects. ' +
     'Do not explicitly wait for elements to be loaded. ' +
     'Set the test timeout limit to 15 seconds. ' +
