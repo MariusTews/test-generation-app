@@ -103,7 +103,7 @@ export class HomeComponent {
       reader.readAsText(file, 'UTF-8');
       reader.onload = (e) => {
         if (e.target != null) {
-          const parts = file.name.split('.');
+          const parts: string[] = file.name.split('.');
           if (this.isComponentFile(parts)) {
             let addTo = null;
             for (let item of this.autoDetectComponentFiles) {
@@ -123,10 +123,20 @@ export class HomeComponent {
               this.autoDetectComponentFiles.push(item);
             }
           } else {
-            const item: OtherCodeItem = new OtherCodeItem();
-            item.name = file.name;
-            item.content = e.target.result;
-            this.autoDetectOtherFiles.push(item);
+            if (parts.at(-1) === 'ts' || parts.at(-1) === 'html') {
+              if (
+                !(
+                  (parts.length === 3 && parts[1] === 'module') ||
+                  (parts.length === 4 && parts[2] === 'spec')
+                ) ||
+                parts[0] === 'app-routing'
+              ) {
+                const item: OtherCodeItem = new OtherCodeItem();
+                item.name = file.name;
+                item.content = e.target.result;
+                this.autoDetectOtherFiles.push(item);
+              }
+            }
           }
         }
         count++;
