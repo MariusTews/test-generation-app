@@ -308,40 +308,4 @@ export class HomeComponent {
       }
     );
   }
-
-  // public getCookie(cookieName: string) {
-  //   let name = cookieName + '=';
-  //   let decodedCookie = decodeURIComponent(document.cookie);
-  //   let ca = decodedCookie.split(';');
-  //   for (let i = 0; i < ca.length; i++) {
-  //     let c = ca[i];
-  //     while (c.charAt(0) == ' ') {
-  //       c = c.substring(1);
-  //     }
-  //     if (c.indexOf(name) == 0) {
-  //       return c.substring(name.length, c.length);
-  //     }
-  //   }
-  //   return '';
-  // }
-
-  // public setCookies() {
-  //   let string = '';
-  //   for (let element of this.componentFiles) {
-  //     string += element.name;
-  //     string += '#';
-  //     string += element.HTMLFile;
-  //     string += '#';
-  //     string += element.TSFile;
-  //     string += '##';
-  //   }
-  //   string += '##';
-  //   for (let element of this.otherFiles) {
-  //     string += element.name;
-  //     string += '#';
-  //     string += element.content;
-  //     string += '##';
-  //   }
-  //   document.cookie = `files=${string}`;
-  // }
 }

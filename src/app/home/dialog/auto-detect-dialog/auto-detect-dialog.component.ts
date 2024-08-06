@@ -38,7 +38,6 @@ export class AutoDetectDialogComponent {
   }
 
   setSelection() {
-    console.log(this.checklist);
     let i = 0;
     const selectedComponentFiles: ComponentItem[] = [];
     for (let item of this.componentFiles) {
@@ -58,5 +57,35 @@ export class AutoDetectDialogComponent {
       componentFiles: selectedComponentFiles,
       otherFiles: selectedOtherFiles,
     };
+    this.setCookies();
+  }
+
+  public getCookie(cookieName: string) {
+    let name = cookieName + '=';
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return '';
+  }
+
+  public setCookies() {
+    let string = '';
+    for (let element of this.returnFiles.componentFiles) {
+      string += element.name + '#';
+    }
+    string += '#';
+    for (let element of this.returnFiles.otherFiles) {
+      string += element.name + '#';
+    }
+    string = string.slice(0, -2);
+    document.cookie = `files=${string}`;
   }
 }
