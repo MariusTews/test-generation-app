@@ -155,7 +155,10 @@ export class HomeComponent {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      this.componentFiles = result.componentFiles;
+      this.otherFiles = result.otherFiles;
+    });
   }
 
   handleComponentFileInput(event: any) {
