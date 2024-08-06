@@ -37,7 +37,11 @@ export class HomeComponent {
     'Assume that the application is running on http://localhost:4200/. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
     'Use locators that are resilient to changes in the DOM. ' +
-    'Set the test timeout limit to 10 seconds. ' +
+    'If possible, every locator should find the corresponding element by its role and text or placeholder. ' +
+    'Please use locators such as getByLabel, getByRole or getByPlaceholder. ' +
+    'Do not create custom page objects. ' +
+    'Do not explicitly wait for elements to be loaded. ' +
+    'Set the test timeout limit to 15 seconds. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' +
     'Start your answer with #nocode, if your answer is not the final test code. ' +
     'If your answer is the final test code, return only the code and start your answer with #code. ' +
@@ -45,7 +49,7 @@ export class HomeComponent {
 
   errorPromptInit =
     'When I run the test, it results in an error. ' +
-    'Please try to fix the error by changing the generated test code. ' +
+    'Please try to fix the error by changing the code line which causes the error. ' +
     'This is the error message:\n';
 
   constructor() {}
