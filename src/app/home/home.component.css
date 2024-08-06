@@ -111,4 +111,5 @@ label[for="files1"] {
 
 #output {
   font-size: 1rem;
+  overflow-x: auto;
 }

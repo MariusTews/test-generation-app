@@ -18,4 +18,8 @@ export class AutoDetectDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  close() {
+    this.dialogRef.close({ data: this.data });
+  }
 }

@@ -28,11 +28,11 @@
     </div>
     <div id="file-input" *ngIf="inputTypeForm.value == 'files'">
       <div id="auto-detect-button">
-        <label for="auto-detect" class="btn btn-secondary">Auto-Detect</label>
+        <label for="folder" class="btn btn-secondary">Choose folder</label>
         <input
           type="file"
           (change)="handleAutoDetect($event)"
-          id="auto-detect"
+          id="folder"
           multiple
           webkitdirectory
         />

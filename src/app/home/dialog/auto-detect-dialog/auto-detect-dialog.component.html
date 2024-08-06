@@ -1,12 +1,22 @@
 <mat-dialog-content>
   <div id="container">
     <div *ngFor="let item of componentFiles" class="file-list">
-      {{ item.name }}
+      <div class="file-item">
+        <mat-checkbox></mat-checkbox>
+        {{ item.name }} component
+      </div>
     </div>
-    <div *ngFor="let item of otherFiles" class="file-list">{{ item.name }}</div>
+    <div *ngFor="let item of otherFiles" class="file-list">
+      <div class="file-item">
+        <mat-checkbox></mat-checkbox>
+        {{ item.name }}
+      </div>
+    </div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="" cdkFocusInitial>Select</button>
+  <button mat-button [mat-dialog-close]="close()" cdkFocusInitial>
+    Select
+  </button>
 </mat-dialog-actions>
