@@ -7,10 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { environment } from 'src/environments/environment';
 import ComponentItem from 'src/util/component-item';
 import OtherCodeItem from 'src/util/other-code-item';
+import { AutoDetectDialogComponent } from './dialog/auto-detect-dialog/auto-detect-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +35,8 @@ export class HomeComponent {
   textInputForm = new FormControl('', []);
   inputTypeForm = new FormControl('files', []);
   isErrorForm = new FormControl(false, []);
+
+  readonly dialog = inject(MatDialog);
 
   promptInit =
     'This is the start of a new, isolated conversation. ' +
@@ -93,6 +97,7 @@ export class HomeComponent {
   }
 
   handleAutoDetect(event: any) {
+    let count = 0;
     for (let file of event.target.files) {
       const reader = new FileReader();
       reader.readAsText(file, 'UTF-8');
@@ -124,8 +129,23 @@ export class HomeComponent {
             this.autoDetectOtherFiles.push(item);
           }
         }
+        count++;
+        if (count === event.target.files.length) {
+          this.openDialog();
+        }
       };
     }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AutoDetectDialogComponent, {
+      data: {
+        componentFiles: this.autoDetectComponentFiles,
+        otherFiles: this.autoDetectOtherFiles,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   handleComponentFileInput(event: any) {
