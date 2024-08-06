@@ -27,6 +27,16 @@
       </mat-form-field>
     </div>
     <div id="file-input" *ngIf="inputTypeForm.value == 'files'">
+      <div id="auto-detect-button">
+        <label for="auto-detect" class="btn btn-secondary">Auto-Detect</label>
+        <input
+          type="file"
+          (change)="handleAutoDetect($event)"
+          id="auto-detect"
+          multiple
+          webkitdirectory
+        />
+      </div>
       <div class="add-file-area">
         <span>Components</span>
         <label for="files1" class="btn btn-outline-success add-file-button"

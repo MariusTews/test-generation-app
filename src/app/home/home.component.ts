@@ -22,6 +22,8 @@ export class HomeComponent {
   model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
   componentFiles: ComponentItem[] = [];
   otherFiles: OtherCodeItem[] = [];
+  autoDetectComponentFiles: ComponentItem[] = [];
+  autoDetectOtherFiles: OtherCodeItem[] = [];
   output = '';
   outputText = '';
   outputReceived = false;
@@ -33,6 +35,7 @@ export class HomeComponent {
   isErrorForm = new FormControl(false, []);
 
   promptInit =
+    'This is the start of a new, isolated conversation. ' +
     'Write an end-to-end test for an Angular application using the Playwright test framework. ' +
     'Try to find critical paths in the scope of the components I provided. ' +
     'Write one test for each critical path. ' +
@@ -89,6 +92,42 @@ export class HomeComponent {
     }
   }
 
+  handleAutoDetect(event: any) {
+    for (let file of event.target.files) {
+      const reader = new FileReader();
+      reader.readAsText(file, 'UTF-8');
+      reader.onload = (e) => {
+        if (e.target != null) {
+          const parts = file.name.split('.');
+          if (this.isComponentFile(parts)) {
+            let addTo = null;
+            for (let item of this.autoDetectComponentFiles) {
+              if (item.name === parts[0]) {
+                addTo = item;
+              }
+            }
+            const item: ComponentItem =
+              addTo === null ? new ComponentItem() : addTo;
+            item.name = parts[0];
+            if (parts[2] === 'html') {
+              item.HTMLFile = e.target.result;
+            } else if (parts[2] === 'ts') {
+              item.TSFile = e.target.result;
+            }
+            if (addTo === null) {
+              this.autoDetectComponentFiles.push(item);
+            }
+          } else {
+            const item: OtherCodeItem = new OtherCodeItem();
+            item.name = file.name;
+            item.content = e.target.result;
+            this.autoDetectOtherFiles.push(item);
+          }
+        }
+      };
+    }
+  }
+
   handleComponentFileInput(event: any) {
     for (let file of event.target.files) {
       const reader = new FileReader();
@@ -96,10 +135,7 @@ export class HomeComponent {
       reader.onload = (e) => {
         if (e.target != null) {
           const parts = file.name.split('.');
-          if (parts.length !== 3) {
-            return;
-          }
-          if (parts[1] !== 'component') {
+          if (!this.isComponentFile(parts)) {
             return;
           }
           let duplicate = false;
@@ -134,6 +170,10 @@ export class HomeComponent {
         }
       };
     }
+  }
+
+  isComponentFile(parts: string[]): boolean {
+    return parts.length === 3 && parts[1] === 'component';
   }
 
   handleOtherFileInput(event: any) {
