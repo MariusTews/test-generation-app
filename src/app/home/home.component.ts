@@ -158,6 +158,7 @@ export class HomeComponent {
     dialogRef.afterClosed().subscribe((result) => {
       this.componentFiles = result.componentFiles;
       this.otherFiles = result.otherFiles;
+      this.textInputForm.setValue(this.generateCodeInput());
     });
   }
 

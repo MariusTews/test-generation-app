@@ -2,13 +2,26 @@
   <div id="container">
     <div *ngFor="let item of componentFiles" class="file-list">
       <div class="file-item">
-        <mat-checkbox></mat-checkbox>
+        <mat-checkbox
+          [checked]="checklist[componentFiles.indexOf(item)]"
+          (change)="update($event.checked, componentFiles.indexOf(item))"
+        ></mat-checkbox>
         {{ item.name }} component
       </div>
     </div>
     <div *ngFor="let item of otherFiles" class="file-list">
       <div class="file-item">
-        <mat-checkbox></mat-checkbox>
+        <mat-checkbox
+          [checked]="
+            checklist[componentFiles.length + otherFiles.indexOf(item)]
+          "
+          (change)="
+            update(
+              $event.checked,
+              componentFiles.length + otherFiles.indexOf(item)
+            )
+          "
+        ></mat-checkbox>
         {{ item.name }}
       </div>
     </div>
@@ -16,5 +29,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Select</button>
+  <button mat-button [mat-dialog-close]="returnFiles" cdkFocusInitial>
+    Select
+  </button>
 </mat-dialog-actions>
