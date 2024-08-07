@@ -79,12 +79,15 @@ label[for="files1"] {
   flex-direction: column;
   justify-content: center;
   margin-top: 0.25em;
+  min-width: 25%;
 }
 
 .file-item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-block: 0.25em;
+  width: 100%;
 }
 
 #input-area {

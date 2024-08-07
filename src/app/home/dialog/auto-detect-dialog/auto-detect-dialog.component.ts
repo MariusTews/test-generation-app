@@ -26,28 +26,12 @@ export class AutoDetectDialogComponent {
     ) {
       this.checklist.push(false);
     }
-    const parts: string[] = this.getCookie('files').split('+');
-    const componentNames: string[] = parts[0].split('#');
-    const otherFileNames: string[] = parts[1].split('#');
-    let i = 0;
-    for (i; i < this.componentFiles.length; i++) {
-      if (componentNames.includes(this.componentFiles[i].name)) {
-        this.checklist[i] = true;
-      }
-    }
-    for (i; i < this.componentFiles.length + this.otherFiles.length; i++) {
-      if (
-        otherFileNames.includes(
-          this.otherFiles[i - this.componentFiles.length].name
-        )
-      ) {
-        this.checklist[i] = true;
-      }
-    }
+    this.getPresetFromCookies();
+    this.setSelection();
   }
 
   onNoClick(): void {
-    this.dialogRef.close({ data: { componentFiles: [], otherFiles: [] } });
+    this.dialogRef.close({ componentFiles: [], otherFiles: [] });
   }
 
   update(select: boolean, index: number) {
@@ -78,7 +62,7 @@ export class AutoDetectDialogComponent {
     this.setCookies();
   }
 
-  public getCookie(cookieName: string) {
+  getCookie(cookieName: string) {
     let name = cookieName + '=';
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -94,7 +78,7 @@ export class AutoDetectDialogComponent {
     return '';
   }
 
-  public setCookies() {
+  setCookies() {
     let string = '';
     for (let element of this.returnFiles.componentFiles) {
       string += element.name + '#';
@@ -104,5 +88,33 @@ export class AutoDetectDialogComponent {
       string += element.name + '#';
     }
     document.cookie = `files=${string}`;
+  }
+
+  getPresetFromCookies() {
+    const cookie = this.getCookie('files');
+    if (!cookie) {
+      return;
+    }
+    if (!cookie.includes('+')) {
+      return;
+    }
+    const parts: string[] = cookie.split('+');
+    const componentNames: string[] = parts[0].split('#');
+    const otherFileNames: string[] = parts[1].split('#');
+    let i = 0;
+    for (i; i < this.componentFiles.length; i++) {
+      if (componentNames.includes(this.componentFiles[i].name)) {
+        this.checklist[i] = true;
+      }
+    }
+    for (i; i < this.componentFiles.length + this.otherFiles.length; i++) {
+      if (
+        otherFileNames.includes(
+          this.otherFiles[i - this.componentFiles.length].name
+        )
+      ) {
+        this.checklist[i] = true;
+      }
+    }
   }
 }

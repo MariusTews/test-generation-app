@@ -159,6 +159,8 @@ export class HomeComponent {
       this.componentFiles = result.componentFiles;
       this.otherFiles = result.otherFiles;
       this.textInputForm.setValue(this.generateCodeInput());
+      this.autoDetectComponentFiles = [];
+      this.autoDetectOtherFiles = [];
     });
   }
 
