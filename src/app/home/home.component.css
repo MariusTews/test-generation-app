@@ -115,4 +115,6 @@ label[for="files1"] {
 #output {
   font-size: 1rem;
   overflow-x: auto;
+  max-width: 75vw;
+  background-color: rgb(245, 245, 245);
 }

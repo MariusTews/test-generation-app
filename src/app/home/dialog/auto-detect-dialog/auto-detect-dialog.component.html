@@ -6,6 +6,7 @@
         <mat-checkbox
           [checked]="checklist[componentFiles.indexOf(item)]"
           (change)="update($event.checked, componentFiles.indexOf(item))"
+          color="primary"
         ></mat-checkbox>
         {{ item.name }} component
       </div>
@@ -23,6 +24,7 @@
               componentFiles.length + otherFiles.indexOf(item)
             )
           "
+          color="primary"
         ></mat-checkbox>
         {{ item.name }}
       </div>

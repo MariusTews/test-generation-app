@@ -19,8 +19,8 @@
           [formControl]="textInputForm"
           cdkTextareaAutosize
           #autosize="cdkTextareaAutosize"
-          cdkAutosizeMinRows="20"
-          cdkAutosizeMaxRows="30"
+          cdkAutosizeMinRows="10"
+          cdkAutosizeMaxRows="15"
           id="input-area"
           placeholder="Your code"
         ></textarea>
@@ -85,6 +85,7 @@
     <mat-checkbox
       [formControl]="isErrorForm"
       *ngIf="inputTypeForm.value == 'text'"
+      color="primary"
       >Contains error message</mat-checkbox
     >
     <button (click)="run()" class="btn btn-primary" id="generate-button">
@@ -112,6 +113,6 @@
         Create file
       </button>
     </div>
-    <pre id="output">{{ outputText }}</pre>
+    <pre id="output" class="border">{{ outputText }}</pre>
   </div>
 </div>
