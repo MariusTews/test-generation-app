@@ -26,6 +26,24 @@ export class AutoDetectDialogComponent {
     ) {
       this.checklist.push(false);
     }
+    const parts: string[] = this.getCookie('files').split('+');
+    const componentNames: string[] = parts[0].split('#');
+    const otherFileNames: string[] = parts[1].split('#');
+    let i = 0;
+    for (i; i < this.componentFiles.length; i++) {
+      if (componentNames.includes(this.componentFiles[i].name)) {
+        this.checklist[i] = true;
+      }
+    }
+    for (i; i < this.componentFiles.length + this.otherFiles.length; i++) {
+      if (
+        otherFileNames.includes(
+          this.otherFiles[i - this.componentFiles.length].name
+        )
+      ) {
+        this.checklist[i] = true;
+      }
+    }
   }
 
   onNoClick(): void {
@@ -81,11 +99,10 @@ export class AutoDetectDialogComponent {
     for (let element of this.returnFiles.componentFiles) {
       string += element.name + '#';
     }
-    string += '#';
+    string += '+';
     for (let element of this.returnFiles.otherFiles) {
       string += element.name + '#';
     }
-    string = string.slice(0, -2);
     document.cookie = `files=${string}`;
   }
 }
