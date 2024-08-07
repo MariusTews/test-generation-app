@@ -150,8 +150,12 @@ export class HomeComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(AutoDetectDialogComponent, {
       data: {
-        componentFiles: this.autoDetectComponentFiles,
-        otherFiles: this.autoDetectOtherFiles,
+        componentFiles: this.autoDetectComponentFiles.sort((file1, file2) => {
+          return file1.name < file2.name ? -1 : 1;
+        }),
+        otherFiles: this.autoDetectOtherFiles.sort((file1, file2) => {
+          return file1.name < file2.name ? -1 : 1;
+        }),
       },
     });
 

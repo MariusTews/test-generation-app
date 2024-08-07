@@ -1,5 +1,6 @@
 <mat-dialog-content>
   <div id="container">
+    <h1>Components</h1>
     <div *ngFor="let item of componentFiles" class="file-list">
       <div class="file-item">
         <mat-checkbox
@@ -9,6 +10,7 @@
         {{ item.name }} component
       </div>
     </div>
+    <h1 id="lower-h1">Other Files</h1>
     <div *ngFor="let item of otherFiles" class="file-list">
       <div class="file-item">
         <mat-checkbox
