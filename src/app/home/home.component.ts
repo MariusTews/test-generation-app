@@ -169,6 +169,8 @@ export class HomeComponent {
       this.textInputForm.setValue(this.generateCodeInput());
       this.autoDetectComponentFiles = [];
       this.autoDetectOtherFiles = [];
+      const input: any = document.getElementById('folder');
+      input.value = null;
     });
   }
 
