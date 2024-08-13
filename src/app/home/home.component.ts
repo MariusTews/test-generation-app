@@ -46,10 +46,11 @@ export class HomeComponent {
     'Assume that the application is running on http://localhost:4200/. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
     'Mock every HTTP request with an appropriate data response. ' +
-    'Create a separate variable for every element of the DOM that you use in the test. ' +
+    'If possible, do the mocking at the very first in the test. ' +
+    // 'Create a separate variable for every element of the DOM that you use in the test. ' +
     'Use locators that are resilient to changes in the DOM. ' +
     'If possible, every locator should find the corresponding element by its role and text or placeholder. ' +
-    'Use locators such as getByLabel, getByRole or getByPlaceholder. ' +
+    'Use locators such as getByLabel, getByText, getByRole or getByPlaceholder. ' +
     'Do not explicitly wait for elements to be loaded. ' +
     'Do not create custom page objects. ' +
     'Do not import other files which I did not provide to you. ' +

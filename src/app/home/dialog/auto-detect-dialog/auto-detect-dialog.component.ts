@@ -87,7 +87,8 @@ export class AutoDetectDialogComponent {
     for (let element of this.returnFiles.otherFiles) {
       string += element.name + '#';
     }
-    document.cookie = `files=${string}`;
+    let maxAge = 60 * 60 * 24 * 7;
+    document.cookie = `files=${string};max-age=${maxAge}`;
   }
 
   getPresetFromCookies() {
