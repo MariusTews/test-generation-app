@@ -45,11 +45,11 @@ export class HomeComponent {
     'Write one test for each critical path. ' +
     'Assume that the application is running on http://localhost:4200/. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
-    'Mock every HTTP request with an appropriate data response. ' +
+    'Mock every HTTP request of any type with an appropriate data response. ' +
     // 'If possible, do the mocking at the very first in the test. ' +
     'Create a separate variable for every element of the DOM that you use in the test. ' +
     // 'Use locators that are resilient to changes in the DOM. ' +
-    // 'If possible, every locator should find the corresponding element by its role and text or placeholder. ' +
+    'If possible, every locator should find the corresponding element by its role and text or placeholder. ' +
     'Use locators such as getByLabel, getByText, getByRole or getByPlaceholder. ' +
     'If you use the getByRole locator, make sure that it searches for the correct role. ' +
     'If you search by a name, label or a text which is taken from a Constants file, then use the value from the constant variable. ' +
@@ -66,8 +66,8 @@ export class HomeComponent {
   errorPromptInit =
     'When I run the test, it results in an error. ' +
     'Please try to fix the error by changing the code line which causes the error. ' +
-    'Return only the changed code line. ' +
-    'This is the error message:\n';
+    'Return only the code line or segment which needs to be changed to fix the error. ' +
+    'Here is some additional information about the error:\n';
 
   constructor() {}
 
@@ -87,6 +87,7 @@ export class HomeComponent {
     } else {
       prompt = this.promptInit + codeInput;
     }
+    console.log(prompt);
     this.outputText = 'Generating answer...';
     try {
       const result = await this.model.generateContent(prompt);
