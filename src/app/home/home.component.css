@@ -3,7 +3,6 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   font-size: 1.25rem;
-  gap: 1rem;
   padding-top: 24px;
 }
 
@@ -13,6 +12,11 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 50vw;
+}
+
+h1 {
+  font-weight: bold;
 }
 
 .btn {
@@ -26,7 +30,7 @@
 
 #input-field {
   width: 100%;
-  height: 75vh;
+  height: 70vh;
 }
 
 #auto-detect-button {
@@ -34,11 +38,11 @@
 }
 
 #file-input {
-  margin-bottom: 3em;
   width: 100%;
+  height: 65.725vh;
+  margin-bottom: 3em;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -83,7 +87,7 @@ label[for="files2"] {
   flex-direction: column;
   margin-top: 0.5em;
   min-width: 25%;
-  max-height: 25vh;
+  height: 20vh;
   overflow: auto;
 }
 
@@ -98,6 +102,20 @@ label[for="files2"] {
 #input-area {
   width: 100%;
   font-size: small;
+}
+
+#send-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#generate-button {
+  margin-left: 1em;
+}
+
+#error-checkbox {
+  width: 7em;
 }
 
 #output-control {
@@ -117,6 +135,7 @@ label[for="files2"] {
   font-size: 1rem;
   overflow-x: auto;
   width: 80%;
-  height: 75vh;
+  height: 75.5vh;
+  padding: 3px;
   background-color: rgb(245, 245, 245);
 }
