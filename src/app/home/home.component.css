@@ -1,16 +1,18 @@
 #content {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
   font-size: 1.25rem;
+  gap: 1rem;
+  padding-top: 24px;
 }
 
-#main-container {
-  margin-top: 24px;
-  min-width: 50vw;
+#input-container,
+#output-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .btn {
@@ -18,12 +20,13 @@
 }
 
 #text-input {
+  width: 80%;
   margin-top: 1em;
 }
 
-#text-input,
 #input-field {
   width: 100%;
+  height: 75vh;
 }
 
 #auto-detect-button {
@@ -50,7 +53,8 @@ input[type="file"] {
   user-select: none;
 }
 
-label[for="files1"] {
+label[for="files1"],
+label[for="files2"] {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -77,9 +81,10 @@ label[for="files1"] {
 .file-items {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-top: 0.25em;
+  margin-top: 0.5em;
   min-width: 25%;
+  max-height: 25vh;
+  overflow: auto;
 }
 
 .file-item {
@@ -95,12 +100,8 @@ label[for="files1"] {
   font-size: small;
 }
 
-#generate-button {
-  margin-bottom: 0.75em;
-}
-
 #output-control {
-  margin-bottom: 2em;
+  margin-top: 1em;
   display: flex;
   justify-content: center;
 }
@@ -115,6 +116,7 @@ label[for="files1"] {
 #output {
   font-size: 1rem;
   overflow-x: auto;
-  max-width: 75vw;
+  width: 80%;
+  height: 75vh;
   background-color: rgb(245, 245, 245);
 }

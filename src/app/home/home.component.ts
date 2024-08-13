@@ -26,10 +26,8 @@ export class HomeComponent {
   otherFiles: OtherCodeItem[] = [];
   autoDetectComponentFiles: ComponentItem[] = [];
   autoDetectOtherFiles: OtherCodeItem[] = [];
-  output = '';
   outputText = '';
   outputReceived = false;
-  showCodeButtonText = 'Show';
   copyCodeButtonText = 'Copy';
 
   textInputForm = new FormControl('', []);
@@ -73,7 +71,6 @@ export class HomeComponent {
 
   async run() {
     this.outputReceived = false;
-    this.showCodeButtonText = 'Show';
     this.copyCodeButtonText = 'Copy';
     let codeInput: any = '';
     if (this.inputTypeForm.value === 'text') {
@@ -87,19 +84,17 @@ export class HomeComponent {
     } else {
       prompt = this.promptInit + codeInput;
     }
-    console.log(prompt);
-    this.outputText = 'Generating answer...';
+    this.outputText = 'Generating output...';
     try {
       const result = await this.model.generateContent(prompt);
       const response = result.response;
       const lines = response.text().split('\n');
       if (lines[0] === '#code') {
-        this.output = lines.slice(2, lines.length - 1).join('\n');
+        this.outputText = lines.slice(2, lines.length - 1).join('\n');
       } else if (lines[0] === '#nocode') {
-        this.output = lines.slice(1, lines.length).join('\n');
+        this.outputText = lines.slice(1, lines.length).join('\n');
       }
       this.outputReceived = true;
-      this.outputText = '';
     } catch (e) {
       this.outputText = 'Something went wrong!';
     }
@@ -288,18 +283,12 @@ export class HomeComponent {
     this.textInputForm.setValue(this.generateCodeInput());
   }
 
-  showOutput() {
-    this.outputText = this.outputText == '' ? this.output : '';
-    this.showCodeButtonText =
-      this.showCodeButtonText == 'Show' ? 'Hide' : 'Show';
-  }
-
   copyCode() {
     this.copyCodeButtonText = 'Copied!';
   }
 
   createFile() {
-    const newBlob = new Blob([this.output], {
+    const newBlob = new Blob([this.outputText], {
       type: 'application/x-typescript',
     });
     const data = window.URL.createObjectURL(newBlob);
