@@ -6,10 +6,10 @@
       aria-label="Input"
       [formControl]="inputTypeForm"
     >
-      <mat-button-toggle value="files" class="input-type"
+      <mat-button-toggle value="files"
         ><mat-icon class="mx-1"> insert_drive_file</mat-icon></mat-button-toggle
       >
-      <mat-button-toggle value="text" class="input-type"
+      <mat-button-toggle value="text"
         ><mat-icon class="mx-1">code</mat-icon></mat-button-toggle
       >
     </mat-button-toggle-group>
@@ -114,5 +114,17 @@
         Create file
       </button>
     </div>
+  </div>
+</div>
+<div id="test-type-switch">
+  <div id="test-type-wrapper">
+    <mat-button-toggle-group
+      name="testType"
+      aria-label="Type"
+      [formControl]="testTypeForm"
+    >
+      <mat-button-toggle value="e2e">E2E</mat-button-toggle>
+      <mat-button-toggle value="unit">Unit</mat-button-toggle>
+    </mat-button-toggle-group>
   </div>
 </div>

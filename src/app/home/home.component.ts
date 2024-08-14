@@ -32,11 +32,12 @@ export class HomeComponent {
 
   textInputForm = new FormControl('', []);
   inputTypeForm = new FormControl('files', []);
+  testTypeForm = new FormControl('e2e', []);
   isErrorForm = new FormControl(false, []);
 
   readonly dialog = inject(MatDialog);
 
-  promptInit =
+  e2ePromptInit =
     'This is the start of a new, isolated conversation. ' +
     'Write an end-to-end test for an Angular application using the Playwright test framework. ' +
     'Try to find critical paths in the scope of the components I provided. ' +
@@ -61,10 +62,20 @@ export class HomeComponent {
     'If your answer is the final test code, return only the code and start your answer with #code. ' +
     'Here is my code:\n';
 
+  unitPromptInit =
+    'This is the start of a new, isolated conversation. ' +
+    'Write a unit test for a NestJS backend using the Jest test framework. ' +
+    // 'Assume that the backend is running on http://localhost:3000/. ' +
+    'Do not import other files which are not used in the tests. ' +
+    'If you need additional information or code to generate a good test, then prompt me for it. ' +
+    'Start your answer with #nocode, if your answer is not the final test code. ' +
+    'If your answer is the final test code, return only the code and start your answer with #code. ' +
+    'Here is my code:\n';
+
   errorPromptInit =
     'When I run the test, it results in an error. ' +
     'Please try to fix the error by changing the code line which causes the error. ' +
-    'Return only the code line or segment which needs to be changed to fix the error. ' +
+    'Return only the code line or segment which needs to be changed to fix the error and start your answer with #code. ' +
     'Here is some additional information about the error:\n';
 
   constructor() {}
@@ -79,10 +90,16 @@ export class HomeComponent {
       codeInput = this.generateCodeInput();
     }
     let prompt = '';
+    let promptInit = '';
+    if (this.testTypeForm.value === 'e2e') {
+      promptInit = this.e2ePromptInit;
+    } else {
+      promptInit = this.unitPromptInit;
+    }
     if (this.inputTypeForm.value === 'text' && this.isErrorForm.value) {
       prompt = this.errorPromptInit + codeInput;
     } else {
-      prompt = this.promptInit + codeInput;
+      prompt = promptInit + codeInput;
     }
     this.outputText = 'Generating output...';
     try {

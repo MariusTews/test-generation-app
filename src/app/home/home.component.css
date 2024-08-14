@@ -3,7 +3,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   font-size: 1.25rem;
-  padding-top: 24px;
+  padding-top: 48px;
 }
 
 #input-container,
@@ -15,8 +15,23 @@
   max-width: 50vw;
 }
 
+#test-type-switch {
+  position: absolute;
+  left: 40vw;
+  right: 40vw;
+  top: 24px;
+}
+
+#test-type-wrapper {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
 h1 {
   font-weight: bold;
+  margin-bottom: 1.5em;
 }
 
 .btn {
