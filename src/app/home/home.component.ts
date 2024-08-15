@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import ComponentItem from 'src/util/component-item';
 import OtherCodeItem from 'src/util/other-code-item';
 import { AutoDetectDialogComponent } from './dialog/auto-detect-dialog/auto-detect-dialog.component';
+import EndpointItem from 'src/util/endpoint-item';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,7 @@ export class HomeComponent {
   genAI = new GoogleGenerativeAI(environment.API_KEY);
   model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
   componentFiles: ComponentItem[] = [];
+  endpointFiles: EndpointItem[] = [];
   otherFiles: OtherCodeItem[] = [];
   autoDetectComponentFiles: ComponentItem[] = [];
   autoDetectOtherFiles: OtherCodeItem[] = [];
@@ -183,22 +185,25 @@ export class HomeComponent {
     dialogRef.afterClosed().subscribe((result) => {
       this.componentFiles = result.componentFiles;
       this.otherFiles = result.otherFiles;
-      this.textInputForm.setValue(this.generateCodeInput());
+      this.finishFileInput('folder');
       this.autoDetectComponentFiles = [];
       this.autoDetectOtherFiles = [];
-      const input: any = document.getElementById('folder');
-      input.value = null;
     });
   }
 
   handleComponentFileInput(event: any) {
+    let count = 0;
     for (let file of event.target.files) {
       const reader = new FileReader();
       reader.readAsText(file, 'UTF-8');
       reader.onload = (e) => {
+        count++;
         if (e.target != null) {
           const parts = file.name.split('.');
           if (!this.isComponentFile(parts)) {
+            if (count === event.target.files.length) {
+              this.finishFileInput('files1');
+            }
             return;
           }
           let duplicate = false;
@@ -216,6 +221,9 @@ export class HomeComponent {
             }
           }
           if (duplicate) {
+            if (count === event.target.files.length) {
+              this.finishFileInput('files1');
+            }
             return;
           }
           const item: ComponentItem =
@@ -229,7 +237,9 @@ export class HomeComponent {
           if (addTo === null) {
             this.componentFiles.push(item);
           }
-          this.textInputForm.setValue(this.generateCodeInput());
+        }
+        if (count === event.target.files.length) {
+          this.finishFileInput('files1');
         }
       };
     }
@@ -239,33 +249,118 @@ export class HomeComponent {
     return parts.length === 3 && parts[1] === 'component';
   }
 
-  handleOtherFileInput(event: any) {
+  handleEndpointFileInput(event: any) {
+    let count = 0;
     for (let file of event.target.files) {
       const reader = new FileReader();
       reader.readAsText(file, 'UTF-8');
       reader.onload = (e) => {
+        count++;
         if (e.target != null) {
-          const item: OtherCodeItem = new OtherCodeItem();
-          item.name = file.name;
-          item.content = e.target.result;
-          this.otherFiles.push(item);
-          this.textInputForm.setValue(this.generateCodeInput());
+          const parts = file.name.split('.');
+          if (!this.isEndpointFile(parts)) {
+            if (count === event.target.files.length) {
+              this.finishFileInput('files3');
+            }
+            return;
+          }
+          let duplicate = false;
+          let addTo = null;
+          for (let item of this.endpointFiles) {
+            if (item.name === parts[0]) {
+              if (
+                (parts[1] === 'controller' && item.controllerFile) ||
+                (parts[1] === 'service' && item.serviceFile)
+              ) {
+                duplicate = true;
+              } else {
+                addTo = item;
+              }
+            }
+          }
+          if (duplicate) {
+            if (count === event.target.files.length) {
+              this.finishFileInput('files3');
+            }
+            return;
+          }
+          const item: EndpointItem =
+            addTo === null ? new EndpointItem() : addTo;
+          item.name = parts[0];
+          if (parts[1] === 'controller') {
+            item.controllerFile = e.target.result;
+          } else if (parts[1] === 'service') {
+            item.serviceFile = e.target.result;
+          }
+          if (addTo === null) {
+            this.endpointFiles.push(item);
+          }
+        }
+        if (count === event.target.files.length) {
+          this.finishFileInput('files3');
         }
       };
     }
   }
 
+  isEndpointFile(parts: string[]): boolean {
+    return (
+      parts.length === 3 &&
+      (parts[1] === 'controller' || parts[1] === 'service')
+    );
+  }
+
+  handleOtherFileInput(event: any) {
+    let count = 0;
+    for (let file of event.target.files) {
+      const reader = new FileReader();
+      reader.readAsText(file, 'UTF-8');
+      reader.onload = (e) => {
+        count++;
+        if (e.target != null) {
+          const item: OtherCodeItem = new OtherCodeItem();
+          item.name = file.name;
+          item.content = e.target.result;
+          this.otherFiles.push(item);
+        }
+        if (count === event.target.files.length) {
+          this.finishFileInput('files2');
+        }
+      };
+    }
+  }
+
+  finishFileInput(inputId: string) {
+    this.textInputForm.setValue(this.generateCodeInput());
+    const input: any = document.getElementById(inputId);
+    input.value = null;
+  }
+
   generateCodeInput(): string {
     let input = '';
-    for (let item of this.componentFiles) {
-      input += item.name + ' component:\n\n';
-      if (item.HTMLFile) {
-        input += item.HTMLFile + '\n\n';
+    if (this.testTypeForm.value === 'e2e') {
+      for (let item of this.componentFiles) {
+        input += item.name + ' component:\n\n';
+        if (item.HTMLFile) {
+          input += item.HTMLFile + '\n\n';
+        }
+        if (item.TSFile) {
+          input += item.TSFile + '\n\n';
+        }
       }
-      if (item.TSFile) {
-        input += item.TSFile + '\n\n';
+    } else {
+      for (let item of this.endpointFiles) {
+        if (item.controllerFile) {
+          input += item.name + ' controller:\n\n';
+          input += item.controllerFile + '\n\n';
+        }
+        if (item.serviceFile) {
+          input += item.name + ' service:\n\n';
+          input += item.serviceFile + '\n\n';
+        }
       }
     }
+
     for (let item of this.otherFiles) {
       input += item.name + '\n\n';
       input += item.content + '\n\n';
@@ -286,8 +381,28 @@ export class HomeComponent {
     return label;
   }
 
+  getEndpointLabel(item: EndpointItem): string {
+    let label = '';
+    label += item.name;
+    if (item.controllerFile && item.serviceFile) {
+      label += ' (Controller, Service)';
+    } else if (item.controllerFile) {
+      label += ' (Controller)';
+    } else if (item.serviceFile) {
+      label += ' (Service)';
+    }
+    return label;
+  }
+
   removeComponent(item: ComponentItem) {
     this.componentFiles = this.componentFiles.filter((element) => {
+      return element !== item;
+    });
+    this.textInputForm.setValue(this.generateCodeInput());
+  }
+
+  removeEndpoint(item: EndpointItem) {
+    this.endpointFiles = this.endpointFiles.filter((element) => {
       return element !== item;
     });
     this.textInputForm.setValue(this.generateCodeInput());

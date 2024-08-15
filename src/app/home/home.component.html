@@ -37,7 +37,7 @@
           webkitdirectory
         />
       </div>
-      <div class="add-file-area">
+      <div class="add-file-area" *ngIf="testTypeForm.value === 'e2e'">
         <span>Components</span>
         <label for="files1" class="btn btn-outline-success add-file-button"
           >+</label
@@ -50,11 +50,34 @@
           multiple
         />
       </div>
-      <div class="file-items">
+      <div class="file-items" *ngIf="testTypeForm.value === 'e2e'">
         <div *ngFor="let item of componentFiles">
           <div class="file-item">
             <span>{{ getComponentLabel(item) }}</span>
             <mat-icon (click)="removeComponent(item)" class="mx-1"
+              >delete</mat-icon
+            >
+          </div>
+        </div>
+      </div>
+      <div class="add-file-area" *ngIf="testTypeForm.value === 'unit'">
+        <span>Endpoints</span>
+        <label for="files3" class="btn btn-outline-success add-file-button"
+          >+</label
+        >
+        <input
+          type="file"
+          (change)="handleEndpointFileInput($event)"
+          id="files3"
+          accept=".ts"
+          multiple
+        />
+      </div>
+      <div class="file-items" *ngIf="testTypeForm.value === 'unit'">
+        <div *ngFor="let item of endpointFiles">
+          <div class="file-item">
+            <span>{{ getEndpointLabel(item) }}</span>
+            <mat-icon (click)="removeEndpoint(item)" class="mx-1"
               >delete</mat-icon
             >
           </div>
@@ -123,8 +146,8 @@
       aria-label="Type"
       [formControl]="testTypeForm"
     >
-      <mat-button-toggle value="e2e">E2E</mat-button-toggle>
-      <mat-button-toggle value="unit">Unit</mat-button-toggle>
+      <mat-button-toggle value="e2e">Angular (E2E)</mat-button-toggle>
+      <mat-button-toggle value="unit">NestJS (Unit)</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 </div>
