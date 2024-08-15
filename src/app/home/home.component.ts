@@ -27,6 +27,7 @@ export class HomeComponent {
   endpointFiles: EndpointItem[] = [];
   otherFiles: OtherCodeItem[] = [];
   autoDetectComponentFiles: ComponentItem[] = [];
+  autoDetectEndpointFiles: EndpointItem[] = [];
   autoDetectOtherFiles: OtherCodeItem[] = [];
   outputText = '';
   outputReceived = false;
@@ -119,7 +120,7 @@ export class HomeComponent {
     }
   }
 
-  handleAutoDetect(event: any) {
+  handleAngularAutoDetect(event: any) {
     let count = 0;
     for (let file of event.target.files) {
       const reader = new FileReader();
@@ -164,29 +165,89 @@ export class HomeComponent {
         }
         count++;
         if (count === event.target.files.length) {
-          this.openDialog();
+          this.openDialog('e2e');
         }
       };
     }
   }
 
-  openDialog(): void {
+  handleNestAutoDetect(event: any) {
+    let count = 0;
+    for (let file of event.target.files) {
+      const reader = new FileReader();
+      reader.readAsText(file, 'UTF-8');
+      reader.onload = (e) => {
+        if (e.target != null) {
+          const parts: string[] = file.name.split('.');
+          if (this.isEndpointFile(parts)) {
+            let addTo = null;
+            for (let item of this.autoDetectEndpointFiles) {
+              if (item.name === parts[0]) {
+                addTo = item;
+              }
+            }
+            const item: EndpointItem =
+              addTo === null ? new EndpointItem() : addTo;
+            item.name = parts[0];
+            if (parts[1] === 'controller') {
+              item.controllerFile = e.target.result;
+            } else if (parts[1] === 'service') {
+              item.serviceFile = e.target.result;
+            }
+            if (addTo === null) {
+              this.autoDetectEndpointFiles.push(item);
+            }
+          } else {
+            if (parts.at(-1) === 'ts') {
+              if (
+                !(
+                  (parts.length === 3 && parts[1] === 'module') ||
+                  (parts.length === 4 && parts[2] === 'spec')
+                )
+              ) {
+                const item: OtherCodeItem = new OtherCodeItem();
+                item.name = file.name;
+                item.content = e.target.result;
+                this.autoDetectOtherFiles.push(item);
+              }
+            }
+          }
+        }
+        count++;
+        if (count === event.target.files.length) {
+          this.openDialog('unit');
+        }
+      };
+    }
+  }
+
+  openDialog(type: string): void {
     const dialogRef = this.dialog.open(AutoDetectDialogComponent, {
       data: {
         componentFiles: this.autoDetectComponentFiles.sort((file1, file2) => {
           return file1.name < file2.name ? -1 : 1;
         }),
+        endpointFiles: this.autoDetectEndpointFiles.sort((file1, file2) => {
+          return file1.name < file2.name ? -1 : 1;
+        }),
         otherFiles: this.autoDetectOtherFiles.sort((file1, file2) => {
           return file1.name < file2.name ? -1 : 1;
         }),
+        type: type,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       this.componentFiles = result.componentFiles;
+      this.endpointFiles = result.endpointFiles;
       this.otherFiles = result.otherFiles;
-      this.finishFileInput('folder');
+      if (type === 'e2e') {
+        this.finishFileInput('folder1');
+      } else {
+        this.finishFileInput('folder2');
+      }
       this.autoDetectComponentFiles = [];
+      this.autoDetectEndpointFiles = [];
       this.autoDetectOtherFiles = [];
     });
   }

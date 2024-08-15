@@ -27,12 +27,22 @@
       </mat-form-field>
     </div>
     <div id="file-input" *ngIf="inputTypeForm.value == 'files'">
-      <div id="auto-detect-button">
-        <label for="folder" class="btn btn-secondary">Choose folder</label>
+      <div class="auto-detect-button" *ngIf="testTypeForm.value === 'e2e'">
+        <label for="folder1" class="btn btn-secondary">Choose folder</label>
         <input
           type="file"
-          (change)="handleAutoDetect($event)"
-          id="folder"
+          (change)="handleAngularAutoDetect($event)"
+          id="folder1"
+          multiple
+          webkitdirectory
+        />
+      </div>
+      <div class="auto-detect-button" *ngIf="testTypeForm.value === 'unit'">
+        <label for="folder2" class="btn btn-secondary">Choose folder</label>
+        <input
+          type="file"
+          (change)="handleNestAutoDetect($event)"
+          id="folder2"
           multiple
           webkitdirectory
         />
