@@ -1,29 +1,36 @@
 <mat-dialog-content>
   <div id="container">
-    <h1>Components</h1>
-    <div *ngFor="let item of componentFiles" class="file-list">
-      <div class="file-item">
-        <mat-checkbox
-          [checked]="checklist[componentFiles.indexOf(item)]"
-          (change)="update($event.checked, componentFiles.indexOf(item))"
-          color="primary"
-        ></mat-checkbox>
-        {{ item.name }} component
+    <h1>{{ type === "e2e" ? "Components" : "Endpoints" }}</h1>
+    <div *ngIf="type === 'e2e'">
+      <div *ngFor="let item of componentFiles" class="file-list">
+        <div class="file-item">
+          <mat-checkbox
+            [checked]="checklist[componentFiles.indexOf(item)]"
+            (change)="update($event.checked, componentFiles.indexOf(item))"
+            color="primary"
+          ></mat-checkbox>
+          {{ item.name }} component
+        </div>
+      </div>
+    </div>
+    <div *ngIf="type === 'unit'">
+      <div *ngFor="let item of endpointFiles" class="file-list">
+        <div class="file-item">
+          <mat-checkbox
+            [checked]="checklist[endpointFiles.indexOf(item)]"
+            (change)="update($event.checked, endpointFiles.indexOf(item))"
+            color="primary"
+          ></mat-checkbox>
+          {{ item.name }} endpoint
+        </div>
       </div>
     </div>
     <h1 id="lower-h1">Other Files</h1>
     <div *ngFor="let item of otherFiles" class="file-list">
       <div class="file-item">
         <mat-checkbox
-          [checked]="
-            checklist[componentFiles.length + otherFiles.indexOf(item)]
-          "
-          (change)="
-            update(
-              $event.checked,
-              componentFiles.length + otherFiles.indexOf(item)
-            )
-          "
+          [checked]="checklist[length + otherFiles.indexOf(item)]"
+          (change)="update($event.checked, length + otherFiles.indexOf(item))"
           color="primary"
         ></mat-checkbox>
         {{ item.name }}
