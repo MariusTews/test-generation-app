@@ -84,6 +84,13 @@ export class HomeComponent {
     }
   }
 
+  clearInput() {
+    this.componentFiles = [];
+    this.endpointFiles = [];
+    this.otherFiles = [];
+    this.textInputForm.setValue('');
+  }
+
   handleAngularAutoDetect(event: any) {
     let count = 0;
     for (let file of event.target.files) {

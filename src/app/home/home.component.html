@@ -14,6 +14,13 @@
       >
     </mat-button-toggle-group>
     <div id="text-input" *ngIf="inputTypeForm.value == 'text'">
+      <button
+        class="btn btn-outline-danger"
+        id="text-clear-button"
+        (click)="clearInput()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
       <mat-form-field id="input-field">
         <textarea
           matInput
@@ -36,6 +43,13 @@
           multiple
           webkitdirectory
         />
+        <button
+          class="btn btn-outline-danger"
+          id="file-clear-button"
+          (click)="clearInput()"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
       <div class="auto-detect-button" *ngIf="testTypeForm.value === 'unit'">
         <label for="folder2" class="btn btn-secondary">Choose folder</label>
