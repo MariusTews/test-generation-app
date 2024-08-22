@@ -7,7 +7,7 @@ export default class Prompts {
     Constants.TEMPERATURE +
     ' for the temperature parameter. ' +
     'Write an end-to-end test for an Angular application using the Playwright test framework. ' +
-    'Try to find critical paths in the scope of the components I provided. ' +
+    'Try to find at least three critical paths in the scope of the components I provided. ' +
     'Write one test for each critical path. ' +
     'Assume that the application is running on http://localhost:4200/. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
@@ -16,6 +16,7 @@ export default class Prompts {
     'If possible, every locator should find the corresponding element by its role and text or placeholder. ' +
     'Use locators such as getByLabel, getByText, getByRole or getByPlaceholder. ' +
     'If you use the getByRole locator, make sure that it searches for the correct role. ' +
+    'Do not use this syntax inside of fill or click calls: await page.fill("input[placeholder="Name"]", "Name"); await page.click("button[role="button"][aria-label="Label"]"); ' +
     'If you search by a name, label or a text which is taken from a Constants file, then use the value from the constant variable. ' +
     'Do not explicitly wait for elements to be loaded. ' +
     'Do not create custom page objects. ' +
