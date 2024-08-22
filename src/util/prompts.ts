@@ -1,6 +1,11 @@
+import Constants from './constants';
+
 export default class Prompts {
   static readonly E2E_PROMPT_INIT =
     'This is the start of a new, isolated conversation. ' +
+    'Use the value ' +
+    Constants.TEMPERATURE +
+    ' for the temperature parameter. ' +
     'Write an end-to-end test for an Angular application using the Playwright test framework. ' +
     'Try to find critical paths in the scope of the components I provided. ' +
     'Write one test for each critical path. ' +
@@ -23,6 +28,9 @@ export default class Prompts {
 
   static readonly UNIT_PROMPT_INIT =
     'This is the start of a new, isolated conversation. ' +
+    'Use the value ' +
+    Constants.TEMPERATURE +
+    ' for the temperature parameter. ' +
     'Write a unit test for a NestJS backend using the Jest test framework. ' +
     'Make sure to mock everything that needs to be mocked. ' +
     'Do not import other files which are not used in the tests. ' +
