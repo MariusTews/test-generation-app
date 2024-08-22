@@ -148,4 +148,11 @@ export class AutoDetectDialogComponent {
       }
     }
   }
+
+  showH1(): boolean {
+    return (
+      (this.type === 'e2e' && this.componentFiles.length > 0) ||
+      (this.type === 'unit' && this.endpointFiles.length > 0)
+    );
+  }
 }

@@ -1,5 +1,5 @@
 export default class Prompts {
-  static readonly e2ePromptInit =
+  static readonly E2E_PROMPT_INIT =
     'This is the start of a new, isolated conversation. ' +
     'Write an end-to-end test for an Angular application using the Playwright test framework. ' +
     'Try to find critical paths in the scope of the components I provided. ' +
@@ -22,7 +22,7 @@ export default class Prompts {
     'If your answer is the final test code, return only the code and start your answer with #code. ' +
     'Here is my code:\n';
 
-  static readonly unitPromptInit =
+  static readonly UNIT_PROMPT_INIT =
     'This is the start of a new, isolated conversation. ' +
     'Write a unit test for a NestJS backend using the Jest test framework. ' +
     'Make sure to mock everything that needs to be mocked. ' +
@@ -32,7 +32,7 @@ export default class Prompts {
     'If your answer is the final test code, return only the code and start your answer with #code. ' +
     'Here is my code:\n';
 
-  static readonly errorPromptInit =
+  static readonly ERROR_PROMPT_INIT =
     'When I run the test, it results in an error. ' +
     'Please try to fix the error by changing the code line which causes the error. ' +
     'Return only the code line or segment which needs to be changed to fix the error and start your answer with #code. ' +

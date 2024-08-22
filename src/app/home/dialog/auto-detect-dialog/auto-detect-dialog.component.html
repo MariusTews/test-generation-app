@@ -1,6 +1,6 @@
 <mat-dialog-content>
   <div id="container">
-    <h1>{{ type === "e2e" ? "Components" : "Endpoints" }}</h1>
+    <h1 *ngIf="showH1()">{{ type === "e2e" ? "Components" : "Endpoints" }}</h1>
     <div *ngIf="type === 'e2e'">
       <div *ngFor="let item of componentFiles" class="file-list">
         <div class="file-item">

@@ -18,6 +18,7 @@
         class="btn btn-outline-danger"
         id="text-clear-button"
         (click)="clearInput()"
+        *ngIf="textInputForm.value !== ''"
       >
         <mat-icon>delete</mat-icon>
       </button>
@@ -47,6 +48,7 @@
           class="btn btn-outline-danger"
           id="file-clear-button"
           (click)="clearInput()"
+          *ngIf="showClearFileButton()"
         >
           <mat-icon>delete</mat-icon>
         </button>
@@ -60,6 +62,14 @@
           multiple
           webkitdirectory
         />
+        <button
+          class="btn btn-outline-danger"
+          id="file-clear-button"
+          (click)="clearInput()"
+          *ngIf="showClearFileButton()"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
       <div class="add-file-area" *ngIf="testTypeForm.value === 'e2e'">
         <span>Components</span>

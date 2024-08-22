@@ -44,20 +44,14 @@ h1 {
   position: relative;
 }
 
-#text-clear-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  width: 2.5em;
-  height: 2.5em;
-  position: absolute;
-  right: -5rem;
-}
-
 #input-field {
   width: 100%;
   height: 70vh;
+}
+
+#input-area {
+  width: 100%;
+  font-size: small;
 }
 
 .auto-detect-button {
@@ -97,17 +91,6 @@ label[for="folder2"] {
   align-items: center;
 }
 
-#file-clear-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  width: 2.5em;
-  height: 2.5em;
-  position: absolute;
-  right: -10rem;
-}
-
 .add-file-area {
   margin-top: 2em;
   width: 100%;
@@ -143,9 +126,23 @@ label[for="folder2"] {
   width: 100%;
 }
 
-#input-area {
-  width: 100%;
-  font-size: small;
+#text-clear-button,
+#file-clear-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  position: absolute;
+}
+
+#text-clear-button {
+  right: -5rem;
+}
+
+#file-clear-button {
+  right: -10rem;
 }
 
 #send-area {

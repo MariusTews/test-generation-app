@@ -41,9 +41,9 @@ export class HomeComponent {
 
   readonly dialog = inject(MatDialog);
 
-  e2ePromptInit = Prompts.e2ePromptInit;
-  unitPromptInit = Prompts.unitPromptInit;
-  errorPromptInit = Prompts.errorPromptInit;
+  e2ePromptInit = Prompts.E2E_PROMPT_INIT;
+  unitPromptInit = Prompts.UNIT_PROMPT_INIT;
+  errorPromptInit = Prompts.ERROR_PROMPT_INIT;
 
   constructor() {}
 
@@ -445,6 +445,14 @@ export class HomeComponent {
       return element !== item;
     });
     this.textInputForm.setValue(this.generateCodeInput());
+  }
+
+  showClearFileButton(): boolean {
+    return (
+      this.otherFiles.length > 0 ||
+      (this.testTypeForm.value === 'e2e' && this.componentFiles.length > 0) ||
+      (this.testTypeForm.value === 'unit' && this.endpointFiles.length > 0)
+    );
   }
 
   copyCode() {
