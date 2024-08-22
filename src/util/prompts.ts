@@ -18,8 +18,7 @@ export default class Prompts {
     'Assume that all paths for imports from the source files can start with src. ' +
     'Set the test timeout limit to 15 seconds by using the setTimeout method. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' +
-    'Start your answer with #nocode, if your answer is not the final test code. ' +
-    'If your answer is the final test code, return only the code and start your answer with #code. ' +
+    'If your answer is the final test code, return only the code. ' +
     'Here is my code:\n';
 
   static readonly UNIT_PROMPT_INIT =
@@ -28,13 +27,16 @@ export default class Prompts {
     'Make sure to mock everything that needs to be mocked. ' +
     'Do not import other files which are not used in the tests. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' +
-    'Start your answer with #nocode, if your answer is not the final test code. ' +
-    'If your answer is the final test code, return only the code and start your answer with #code. ' +
+    'If your answer is the final test code, return only the code. ' +
     'Here is my code:\n';
 
   static readonly ERROR_PROMPT_INIT =
     'When I run the test, it results in an error. ' +
-    'Please try to fix the error by changing the code line which causes the error. ' +
-    'Return only the code line or segment which needs to be changed to fix the error and start your answer with #code. ' +
+    'Please try to fix the error by changing the code line or segment which causes the error. ' +
+    'Return two alternative code lines or segments which could fix the error. ' +
+    'Return only the code lines/segments. ' +
+    'An example answer would be:\n' +
+    '(1) value = 0\n' +
+    '(2) value = 1\n' +
     'Here is some additional information about the error:\n';
 }

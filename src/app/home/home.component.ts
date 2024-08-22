@@ -73,10 +73,11 @@ export class HomeComponent {
       const result = await this.model.generateContent(prompt);
       const response = result.response;
       const lines = response.text().split('\n');
-      if (lines[0] === '#code') {
-        this.outputText = lines.slice(2, lines.length - 1).join('\n');
-      } else if (lines[0] === '#nocode') {
-        this.outputText = lines.slice(1, lines.length).join('\n');
+      if (lines[0].startsWith('```')) {
+        // in this case the output is only code and has a prefix and postfix which need to be removed
+        this.outputText = lines.slice(1, lines.length - 1).join('\n');
+      } else {
+        this.outputText = lines.join('\n');
       }
       this.outputReceived = true;
     } catch (e) {
