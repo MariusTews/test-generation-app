@@ -1,3 +1,3 @@
 export default class Constants {
-  static readonly TEMPERATURE = '0.2';
+  static readonly TEMPERATURE = '0.1';
 }

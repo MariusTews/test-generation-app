@@ -16,6 +16,7 @@ export default class Prompts {
     'If possible, every locator should find the corresponding element by its role and text or placeholder. ' +
     'Use locators such as getByLabel, getByText, getByRole or getByPlaceholder. ' +
     'If you use the getByRole locator, make sure that it searches for the correct role. ' +
+    'Do not locate an element using an aria-label. ' +
     // 'Do not use this syntax inside of fill or click calls: await page.fill("input[placeholder="Name"]", "Name"); await page.click("button[role="button"][aria-label="Label"]"); ' +
     'When using a fill or click call, then first create a separate variable for the selector. ' +
     'To select a button inside of a menu, use the "menuitem" role. ' +
