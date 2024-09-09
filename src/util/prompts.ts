@@ -11,7 +11,7 @@ export default class Prompts {
     'Write one test for each critical path. ' +
     'Assume that the application is running on http://localhost:4200/. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
-    'Mock every HTTP request of any type with an appropriate data response by using the route method of the page object. ' +
+    'At the very beginning of each test, mock every HTTP request of any type with an appropriate data response by using the route method of the page object. ' +
     'Use locators that are resilient to changes in the DOM. ' +
     'If possible, every locator should find the corresponding element by its role and text or placeholder. ' +
     'Use locators such as getByLabel, getByText, getByRole or getByPlaceholder. ' +
