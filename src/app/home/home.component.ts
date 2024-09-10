@@ -42,7 +42,9 @@ export class HomeComponent {
   readonly dialog = inject(MatDialog);
 
   e2ePromptInit = Prompts.E2E_PROMPT_INIT;
+  e2ePromptFollowUp = Prompts.E2E_PROMPT_FOLLOWUP;
   unitPromptInit = Prompts.UNIT_PROMPT_INIT;
+  unitPromptFollowUp = Prompts.UNIT_PROMPT_FOLLOWUP;
   errorPromptInit = Prompts.ERROR_PROMPT_INIT;
 
   constructor() {}
@@ -74,9 +76,12 @@ export class HomeComponent {
       const result1 = await chat.sendMessage(prompt);
       const response1 = result1.response;
       if (response1.text().startsWith('```')) {
-        // response is the final test code, but it needs to be refined
         this.outputText = 'Refining output...';
-        const result2 = await chat.sendMessage(Prompts.E2E_PROMPT_FOLLOWUP);
+        const promptFollowUp =
+          this.testTypeForm.value === 'e2e'
+            ? this.e2ePromptFollowUp
+            : this.unitPromptFollowUp;
+        const result2 = await chat.sendMessage(promptFollowUp);
         const response2 = result2.response;
         const lines = response2.text().split('\n');
         this.outputText = lines.slice(1, lines.length - 1).join('\n');

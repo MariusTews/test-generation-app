@@ -54,6 +54,9 @@ export default class Prompts {
     'If your answer is the final test code, return only the code. ' +
     'Here is my code:\n';
 
+  // PLACEHOLDER
+  static readonly UNIT_PROMPT_FOLLOWUP = 'Return the test code again.';
+
   static readonly ERROR_PROMPT_INIT =
     'When I run the test, it results in an error. ' +
     'Please try to fix the error by changing the code line or segment which causes the error. ' +
