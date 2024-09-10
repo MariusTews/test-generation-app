@@ -12,14 +12,16 @@ export default class Prompts {
     'Assume that the application is running on http://localhost:4200/. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
     'At the very beginning of each test, mock every HTTP request of any type with an appropriate data response by using the route method of the page object. ' +
+    'If the same HTTP request is called multiple times, then mock it multiple times at the appropriate places inside a test. ' +
     'Use locators that are resilient to changes in the DOM. ' +
     'If possible, every locator should find the corresponding element by its role and text or placeholder. ' +
     'Use locators such as getByLabel, getByText, getByRole or getByPlaceholder. ' +
     'If you use the getByRole locator, make sure that it searches for the correct role. ' +
     'Do not locate an element using an aria-label. ' +
-    // 'Do not use this syntax inside of fill or click calls: await page.fill("input[placeholder="Name"]", "Name"); await page.click("button[role="button"][aria-label="Label"]"); ' +
     'When using a fill or click call, then first create a separate variable for the selector. ' +
+    'There is no "await" needed in front of such a variable declaration. ' +
     'To select a button inside of a menu, use the "menuitem" role. ' +
+    'To select a button which only contains an icon, use a syntax similar to this statement: page.locator("button").filter({ hasText: "create" });. ' +
     'If you search by a name, label or a text which is taken from a Constants file, then use the value from the constant variable. ' +
     'Do not explicitly wait for elements to be loaded. ' +
     'Do not create custom page objects. ' +

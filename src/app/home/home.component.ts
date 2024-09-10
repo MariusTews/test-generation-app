@@ -71,20 +71,16 @@ export class HomeComponent {
     this.outputText = 'Generating output...';
     try {
       const chat = this.model.startChat();
-      // const result = await this.model.generateContent(prompt);
       const result = await chat.sendMessage(prompt);
       const response = result.response;
-      const lines = response.text().split('\n');
-      if (lines[0].startsWith('```')) {
-        // const result = await this.model.generateContent(
-        //   Prompts.E2E_POMPT_FOLLOWUP
-        // );
-        const result = await chat.sendMessage(Prompts.E2E_PROMPT_FOLLOWUP);
-        const response = result.response;
-        const lines = response.text().split('\n');
+      if (response.text().startsWith('```')) {
+        // response is the final test code, but it needs to be refined
+        const result1 = await chat.sendMessage(Prompts.E2E_PROMPT_FOLLOWUP);
+        const response1 = result1.response;
+        const lines = response1.text().split('\n');
         this.outputText = lines.slice(1, lines.length - 1).join('\n');
       } else {
-        this.outputText = lines.join('\n');
+        this.outputText = response.text();
       }
       this.outputReceived = true;
     } catch (e) {
