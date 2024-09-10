@@ -71,16 +71,17 @@ export class HomeComponent {
     this.outputText = 'Generating output...';
     try {
       const chat = this.model.startChat();
-      const result = await chat.sendMessage(prompt);
-      const response = result.response;
-      if (response.text().startsWith('```')) {
+      const result1 = await chat.sendMessage(prompt);
+      const response1 = result1.response;
+      if (response1.text().startsWith('```')) {
         // response is the final test code, but it needs to be refined
-        const result1 = await chat.sendMessage(Prompts.E2E_PROMPT_FOLLOWUP);
-        const response1 = result1.response;
-        const lines = response1.text().split('\n');
+        this.outputText = 'Refining output...';
+        const result2 = await chat.sendMessage(Prompts.E2E_PROMPT_FOLLOWUP);
+        const response2 = result2.response;
+        const lines = response2.text().split('\n');
         this.outputText = lines.slice(1, lines.length - 1).join('\n');
       } else {
-        this.outputText = response.text();
+        this.outputText = response1.text();
       }
       this.outputReceived = true;
     } catch (e) {

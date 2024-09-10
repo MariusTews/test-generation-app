@@ -150,12 +150,9 @@ label[for="folder2"] {
   align-items: center;
 }
 
-#generate-button {
-  margin-left: 1em;
-}
-
 #error-checkbox {
   width: 7em;
+  margin-right: 1em;
 }
 
 #output-control {
@@ -178,4 +175,34 @@ label[for="folder2"] {
   height: 75.5vh;
   padding: 3px;
   background-color: rgb(245, 245, 245);
+}
+
+@media (width < 1000px) {
+  #content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  #input-container,
+  #output-container {
+    max-width: 100vw;
+    margin-top: 48px;
+  }
+
+  #output-container {
+    margin-bottom: 24px;
+  }
+
+  #test-type-switch {
+    left: 0;
+    right: 0;
+  }
+
+  #text-clear-button {
+    right: -3.5rem;
+  }
+
+  #file-clear-button {
+    right: -5rem;
+  }
 }
