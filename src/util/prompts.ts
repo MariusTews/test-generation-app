@@ -10,9 +10,13 @@ export default class Prompts {
     'Try to find at least three critical paths in the scope of the components I provided. ' +
     'Write one test for each critical path. ' +
     'Assume that the application is running on http://localhost:4200/. ' +
+    'Use the goto method of the page object to navigate to a fitting starting page for the test. ' +
+    'To find a fitting route, use the app routing module, if it is provided to you. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
     'At the very beginning of each test, mock every HTTP request of any type with an appropriate data response by using the route method of the page object. ' +
     'If the same HTTP request is called multiple times, then mock it multiple times at the appropriate places inside a test. ' +
+    'Use one route method call on the page object for every HTTP request that needs to be mocked. ' +
+    'Do not handle multiple cases in one such a route method call. ' +
     'Use locators that are resilient to changes in the DOM. ' +
     'If possible, every locator should find the corresponding element by its role and text or placeholder. ' +
     'Use locators such as getByLabel, getByText, getByRole or getByPlaceholder. ' +
