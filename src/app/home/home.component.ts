@@ -70,11 +70,18 @@ export class HomeComponent {
     }
     this.outputText = 'Generating output...';
     try {
-      const result = await this.model.generateContent(prompt);
+      const chat = this.model.startChat();
+      // const result = await this.model.generateContent(prompt);
+      const result = await chat.sendMessage(prompt);
       const response = result.response;
       const lines = response.text().split('\n');
       if (lines[0].startsWith('```')) {
-        // in this case the output is only code and has a prefix and postfix which need to be removed
+        // const result = await this.model.generateContent(
+        //   Prompts.E2E_POMPT_FOLLOWUP
+        // );
+        const result = await chat.sendMessage(Prompts.E2E_PROMPT_FOLLOWUP);
+        const response = result.response;
+        const lines = response.text().split('\n');
         this.outputText = lines.slice(1, lines.length - 1).join('\n');
       } else {
         this.outputText = lines.join('\n');

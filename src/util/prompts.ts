@@ -30,6 +30,10 @@ export default class Prompts {
     'If your answer is the final test code, return only the code. ' +
     'Here is my code:\n';
 
+  static readonly E2E_PROMPT_FOLLOWUP =
+    'Try to find more critical paths in the scope of the components I provided. ' +
+    'Add one test for each critical path and return the new test code with all previous tests and potential new tests. ';
+
   static readonly UNIT_PROMPT_INIT =
     'This is the start of a new, isolated conversation. ' +
     'Use the value ' +
