@@ -15,7 +15,6 @@ export default class Prompts {
     'Use one route method call on the page object for every HTTP request that needs to be mocked. ' +
     'Do not handle multiple cases in one such a route method call. ' +
     'For example, if there are multiple HTTP requests to a similar URL, then create one route method call for each one of them. ' +
-    'Do not discern between the cases inside of one route method call using using such a statement: route.request().url().includes("example"). ' +
     'Assume that the application is running on http://localhost:4200/. ' +
     'Use the goto method of the page object to navigate to a fitting starting page for the test after all HTTP requests are mocked. ' +
     'To find a fitting route, use the app routing module, if it is provided to you. ' +
@@ -32,7 +31,7 @@ export default class Prompts {
     'Do not explicitly wait for elements to be loaded. ' +
     'Do not create custom page objects. ' +
     'Do not import other files which are not used in the tests. ' +
-    'Assume that all paths for imports from the source files can start with src. ' +
+    'Assume that all paths for imports from the source files can start with src and that they can be imported without "{}". ' +
     'Set the test timeout limit to 15 seconds by using the setTimeout method. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' +
     'If your answer is the final test code, return only the code. ' +
@@ -61,13 +60,19 @@ export default class Prompts {
     'If necessary, rewrite parts of the tests to meet the requirements. ' +
     'Finally, return the overhauled test code.';
 
+  // static readonly ERROR_PROMPT_INIT =
+  //   'When I run the test, it results in an error. ' +
+  //   'Please try to fix the error by changing the code line or segment which causes the error. ' +
+  //   'Return two alternative code lines or segments which could fix the error. ' +
+  //   'Return only the code lines/segments. ' +
+  //   'An example answer would be:\n' +
+  //   '(1) value = 0\n' +
+  //   '(2) value = 1\n' +
+  //   'Here is some additional information about the error:\n';
+
   static readonly ERROR_PROMPT_INIT =
     'When I run the test, it results in an error. ' +
     'Please try to fix the error by changing the code line or segment which causes the error. ' +
-    'Return two alternative code lines or segments which could fix the error. ' +
-    'Return only the code lines/segments. ' +
-    'An example answer would be:\n' +
-    '(1) value = 0\n' +
-    '(2) value = 1\n' +
+    'Return the whole previous test code including the changed code line or segment and nothing else. ' +
     'Here is some additional information about the error:\n';
 }

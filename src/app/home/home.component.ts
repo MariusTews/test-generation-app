@@ -77,12 +77,15 @@ export class HomeComponent {
       const response1 = result1.response;
       if (response1.text().startsWith('```')) {
         this.outputText = 'Refining output...';
-        const promptFollowUp =
-          this.testTypeForm.value === 'e2e'
-            ? this.e2ePromptFollowUp
-            : this.unitPromptFollowUp;
-        const result2 = await chat.sendMessage(promptFollowUp);
-        const response2 = result2.response;
+        let response2 = response1;
+        if (!this.isErrorForm.value) {
+          const promptFollowUp =
+            this.testTypeForm.value === 'e2e'
+              ? this.e2ePromptFollowUp
+              : this.unitPromptFollowUp;
+          const result2 = await chat.sendMessage(promptFollowUp);
+          response2 = result2.response;
+        }
         const lines = response2.text().split('\n');
         this.outputText = lines.slice(1, lines.length - 1).join('\n');
       } else {
