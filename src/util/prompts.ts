@@ -40,7 +40,9 @@ export default class Prompts {
 
   static readonly E2E_PROMPT_FOLLOWUP =
     'Try to find more critical paths in the scope of the components I provided. ' +
-    'Add one test for each critical path and return the new test code with all previous tests and potential new tests. ';
+    'Add one test for each critical path and return the new test code with all previous tests and potential new tests. ' +
+    'Before returning, make sure once again that all requirements from the previous prompt are met. ' +
+    'If necessary, rewrite parts of the tests to meet the requirements.';
 
   static readonly UNIT_PROMPT_INIT =
     'This is the start of a new, isolated conversation. ' +
@@ -54,8 +56,10 @@ export default class Prompts {
     'If your answer is the final test code, return only the code. ' +
     'Here is my code:\n';
 
-  // PLACEHOLDER
-  static readonly UNIT_PROMPT_FOLLOWUP = 'Return the test code again.';
+  static readonly UNIT_PROMPT_FOLLOWUP =
+    'Make sure once again that all requirements from the previous prompt are met. ' +
+    'If necessary, rewrite parts of the tests to meet the requirements. ' +
+    'Finally, return the overhauled test code.';
 
   static readonly ERROR_PROMPT_INIT =
     'When I run the test, it results in an error. ' +
