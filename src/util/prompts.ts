@@ -10,24 +10,25 @@ export default class Prompts {
     'Try to find at least three critical paths in the scope of the components I provided. ' +
     'Write one test for each critical path. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
-    'At the very beginning of each test, mock every HTTP request of any type with an appropriate data response by using the route method of the page object. ' +
+    'Mock every HTTP request of any type with an appropriate data response by using the route method of the page object at appropriate places in each test. ' +
     'If the same HTTP request is called multiple times, then mock it once, but change the return value before it is called again during the test run if necessary. ' +
     'Use one route method call on the page object for every HTTP request that needs to be mocked. ' +
     'Do not handle multiple cases in one such a route method call. ' +
     'For example, if there are multiple HTTP requests to a similar URL, then create one route method call for each one of them. ' +
     'Assume that the application is running on http://localhost:4200/. ' +
-    'Use the goto method of the page object to navigate to a fitting starting page for the test after all HTTP requests are mocked. ' +
+    'Use the goto method of the page object to navigate to a fitting starting page for the test. ' +
     'To find a fitting route, use the app routing module, if it is provided to you. ' +
+    'If data is fetched when loading the page, then call the goto method after the corresponding HTTP requests are mocked. ' +
     'Use locators that are resilient to changes in the DOM. ' +
     'If possible, every locator should find the corresponding element by its role and text or placeholder. ' +
     'Use locators such as getByLabel, getByText, getByRole or getByPlaceholder. ' +
-    'If you use the getByRole locator, make sure that it searches for the correct role. ' +
     'Do not locate an element using an aria-label. ' +
     'When using a fill or click call, then first create a separate variable for the selector. ' +
     'There is no "await" needed in front of such a variable declaration. ' +
     'To select a button inside of a menu, use the "menuitem" role. ' +
     'To select a button which only contains an icon, use a syntax similar to this statement: page.locator("button").filter({ hasText: "create" });. ' +
     'If you search by a name, label or a text which is taken from a Constants file, then use the value from the constant variable. ' +
+    'If you create an object inside the test, use this syntax: "const object: Type = {data: 0} as Type". ' +
     'Do not explicitly wait for elements to be loaded. ' +
     'Do not create custom page objects. ' +
     'Do not import other files which are not used in the tests. ' +
@@ -73,6 +74,8 @@ export default class Prompts {
   static readonly ERROR_PROMPT_INIT =
     'When I run the test, it results in an error. ' +
     'Please try to fix the error by changing the code line or segment which causes the error. ' +
-    'Return the whole previous test code including the changed code line or segment and nothing else. ' +
+    'Return the same test code as before, but now with the changes made to fix the error. ' +
+    'Do not add any explanation regarding the error. ' +
+    'If the error occurs because an element can not be located, then try to use this locator syntax to fix the error: page.locator("role").filter({ hasText: "text" });. ' +
     'Here is some additional information about the error:\n';
 }

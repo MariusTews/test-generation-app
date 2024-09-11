@@ -24,6 +24,7 @@ import Prompts from 'src/util/prompts';
 export class HomeComponent {
   genAI = new GoogleGenerativeAI(environment.API_KEY);
   model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  chat = this.model.startChat();
   componentFiles: ComponentItem[] = [];
   endpointFiles: EndpointItem[] = [];
   otherFiles: OtherCodeItem[] = [];
@@ -72,8 +73,7 @@ export class HomeComponent {
     }
     this.outputText = 'Generating output...';
     try {
-      const chat = this.model.startChat();
-      const result1 = await chat.sendMessage(prompt);
+      const result1 = await this.chat.sendMessage(prompt);
       const response1 = result1.response;
       if (response1.text().startsWith('```')) {
         this.outputText = 'Refining output...';
@@ -83,7 +83,7 @@ export class HomeComponent {
             this.testTypeForm.value === 'e2e'
               ? this.e2ePromptFollowUp
               : this.unitPromptFollowUp;
-          const result2 = await chat.sendMessage(promptFollowUp);
+          const result2 = await this.chat.sendMessage(promptFollowUp);
           response2 = result2.response;
         }
         const lines = response2.text().split('\n');
