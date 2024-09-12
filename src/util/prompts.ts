@@ -10,24 +10,23 @@ export default class Prompts {
     'Try to find at least three critical paths in the scope of the components I provided. ' +
     'Write one test for each critical path. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
-    'Mock every HTTP request of any type with an appropriate data response by using the route method of the page object at appropriate places in each test. ' +
-    'Only use a "*" inside of the url of a route method call to replace the first part of the string. ' +
-    'Do not use a "*" to replace the part after the first url parameter, instead use the real url part here. ' +
-    'Do not use if-statements inside of such a route method call. ' +
+    'Mock every HTTP request of any type which is used during the test run with an appropriate data response at the beginning of each test. ' +
+    'Use the following syntax for this: "await page.route("**/parameter", async route => {await route.fulfill({})})". ' +
+    'Do not use if-statements to mock multiple HTTP requests. ' +
     'If the same HTTP request is called multiple times, then mock it once, but change the return value before it is called again during the test run if necessary. ' +
     'Assume that the application is running on http://localhost:4200/. ' +
     'Use the goto method of the page object to navigate to a fitting starting page for the test. ' +
     'To find a fitting route, use the app routing module, if it is provided to you. ' +
     'If data is fetched when loading the page, then call the goto method after the corresponding HTTP requests are mocked. ' +
+    'Add meaningful assertions at the end of each test. ' +
     'Use locators that are resilient to changes in the DOM. ' +
-    'Use locators such as getByLabel, getByText, getByRole or getByPlaceholder. ' +
-    'If you use the getByRole locator, then use it in this way: page.getByRole("role").filter({ hasText: "text" });. ' +
+    'Use locators such as getByText, getByRole or getByPlaceholder. ' +
     'Do not locate an element using an aria-label. ' +
     'When using a fill or click call, then first create a separate variable for the selector. ' +
     'There is no "await" needed in front of such a variable declaration. ' +
     'To select a button inside of a menu, use the "menuitem" role. ' +
     'If you search by a name, label or a text which is taken from a Constants file, then use the value from the constant variable. ' +
-    'If you create an object inside the test, use this syntax: "const object: Type = {data: 0} as Type". ' +
+    'If you create an object inside the test, use this syntax: "const object = {data: 0} as Type". ' +
     'Do not explicitly wait for elements to be loaded. ' +
     'Do not create custom page objects. ' +
     'Do not import other files which are not used in the tests. ' +
@@ -39,9 +38,7 @@ export default class Prompts {
 
   static readonly E2E_PROMPT_FOLLOWUP =
     'Try to find more critical paths in the scope of the components I provided. ' +
-    'Add one test for each critical path and return the new test code with all previous tests and potential new tests. ' +
-    'Before returning, make sure once again that all requirements from the previous prompt are met. ' +
-    'If necessary, rewrite parts of the tests to meet the requirements.';
+    'Add one test for each critical path and return the new test code with all previous tests and potential new tests. ';
 
   static readonly UNIT_PROMPT_INIT =
     'This is the start of a new, isolated conversation. ' +
