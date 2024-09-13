@@ -13,11 +13,9 @@ export default class Prompts {
     'Mock every HTTP request of any type which is used during the test run with an appropriate data response at the beginning of each test. ' +
     'Use the following syntax for this: "await page.route("**/parameter", async route => {await route.fulfill({})})". ' +
     'Do not use if-statements to mock multiple HTTP requests. ' +
-    'If the same HTTP request is called multiple times, then mock it once, but change the return value before it is called again during the test run if necessary. ' +
-    'Assume that the application is running on http://localhost:4200/. ' +
-    'Use the goto method of the page object to navigate to a fitting starting page for the test. ' +
-    'To find a fitting route, use the app routing module, if it is provided to you. ' +
-    'If data is fetched when loading the page, then call the goto method after the corresponding HTTP requests are mocked. ' +
+    'If the same HTTP request is called multiple times, then mock it once, but change the return value before it is called again during the test run. ' +
+    'Use page.goto("http://localhost:4200/[parameters]") to navigate to a fitting starting page for the test after you have mocked all HTTP requests. ' +
+    'To find the fitting route parameters, use the app routing module, if it is provided to you. ' +
     'Add meaningful assertions at the end of each test. ' +
     'Use locators that are resilient to changes in the DOM. ' +
     'Use locators such as getByText, getByRole or getByPlaceholder. ' +
@@ -25,7 +23,7 @@ export default class Prompts {
     'When using a fill or click call, then first create a separate variable for the selector. ' +
     'There is no "await" needed in front of such a variable declaration. ' +
     'To select a button inside of a menu, use the "menuitem" role. ' +
-    'If you search by a name, label or a text which is taken from a Constants file, then use the value from the constant variable. ' +
+    'If you search by a name, label or a text which is taken from a constants file, then use the value from the constant variable. ' +
     'If you create an object inside the test, use this syntax: "const object = {data: 0} as Type". ' +
     'Do not explicitly wait for elements to be loaded. ' +
     'Do not create custom page objects. ' +
@@ -38,7 +36,8 @@ export default class Prompts {
 
   static readonly E2E_PROMPT_FOLLOWUP =
     'Try to find more critical paths in the scope of the components I provided. ' +
-    'Add one test for each critical path and return the new test code with all previous tests and potential new tests. ';
+    'Add one test for each critical path and return the new test code with all previous tests and potential new tests. ' +
+    'Make sure that all tests follow the rules which I provided to you in the last prompt.';
 
   static readonly UNIT_PROMPT_INIT =
     'This is the start of a new, isolated conversation. ' +
@@ -71,7 +70,6 @@ export default class Prompts {
     'When I run the test, it results in an error. ' +
     'Please try to fix the error by changing the code line or segment which causes the error. ' +
     'Return the same test code as before, but now with the changes made to fix the error. ' +
-    'Do not add any explanation regarding the error. ' +
-    'If the error occurs because an element can not be located, then try to use this locator syntax to fix the error: page.getByRole("role").filter({ hasText: "text" });. ' +
+    'Return only the code, do not add any other text or explanation. ' +
     'Here is some additional information about the error:\n';
 }
