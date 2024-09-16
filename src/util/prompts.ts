@@ -10,11 +10,12 @@ export default class Prompts {
     'Try to find at least three critical paths in the scope of the components I provided. ' +
     'Write one test for each critical path. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
-    'Mock every HTTP request of any type which is used during the test run with an appropriate data response at the beginning of each test. ' +
-    'Use the following syntax for this: "await page.route("**/parameter", async route => {await route.fulfill({})})". ' +
+    'Mock every HTTP request of any type which is used during the test run with an appropriate data response. ' +
+    'Use the following syntax for this: "await page.route("[url]", async route => {await route.fulfill({})})". ' +
+    'Make sure that the first parameter of the route method always contains the corresponding url of the HTTP request which should be mocked. ' +
     'Do not use if-statements to mock multiple HTTP requests. ' +
-    'If the same HTTP request is called multiple times, then mock it once, but change the return value before it is called again during the test run. ' +
-    'Use page.goto("http://localhost:4200/[parameters]") to navigate to a fitting starting page for the test after you have mocked all HTTP requests. ' +
+    'If the same HTTP request is called multiple times, then mock it multiple times. ' +
+    'Use page.goto("http://localhost:4200/[parameters]") to navigate to a fitting starting page for the test. ' +
     'To find the fitting route parameters, use the app routing module, if it is provided to you. ' +
     'Add meaningful assertions at the end of each test. ' +
     'Use locators that are resilient to changes in the DOM. ' +
@@ -32,6 +33,8 @@ export default class Prompts {
     'Set the test timeout limit to 15 seconds by using the setTimeout method. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' +
     'If your answer is the final test code, return only the code. ' +
+    // 'Here is an example test in pseudo code: Step 1: Create data for HTTP request mocking; Step 2: Mock HTTP request; Step 3: Navigate to starting page; ' +
+    // 'Step 4: Add new data in a form; Step 5: Add this data to the initially created data for the HTTP request mocking; Step 6: Submit the form; Step 7: Assert that the new data is added.\n' +
     'Here is my code:\n';
 
   static readonly E2E_PROMPT_FOLLOWUP =
