@@ -10,8 +10,8 @@ export default class Prompts {
     'Try to find at least three critical paths in the scope of the components I provided. ' +
     'Write one test for each critical path. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
-    'Mock every HTTP request of any type which is used during the test run with an appropriate data response. ' +
-    'Use the following syntax for this: "await page.route("[url]", async route => {await route.fulfill({})})". ' +
+    'Mock every HTTP request of any type which is called in the used components with an appropriate data response. ' +
+    'Use the following syntax for this: "await page.route("[url]", async route => {await route.fulfill({body: JSON.stringify([response])})})". ' +
     'Make sure that the first parameter of the route method always contains the corresponding url of the HTTP request which should be mocked. ' +
     'Do not use if-statements to mock multiple HTTP requests. ' +
     'If the same HTTP request is called multiple times, then mock it multiple times. ' +
