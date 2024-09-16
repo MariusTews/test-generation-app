@@ -25,7 +25,6 @@ export default class Prompts {
     'There is no "await" needed in front of such a variable declaration. ' +
     'To select a button inside of a menu, use the "menuitem" role. ' +
     'If you search by a name, label or a text which is taken from a constants file, then use the value from the constant variable. ' +
-    'If you create an object inside the test, use this syntax: "const object = {data: 0} as Type". ' +
     'Do not explicitly wait for elements to be loaded. ' +
     'Do not create custom page objects. ' +
     'Do not import other files which are not used in the tests. ' +
@@ -33,8 +32,6 @@ export default class Prompts {
     'Set the test timeout limit to 15 seconds by using the setTimeout method. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' +
     'If your answer is the final test code, return only the code. ' +
-    // 'Here is an example test in pseudo code: Step 1: Create data for HTTP request mocking; Step 2: Mock HTTP request; Step 3: Navigate to starting page; ' +
-    // 'Step 4: Add new data in a form; Step 5: Add this data to the initially created data for the HTTP request mocking; Step 6: Submit the form; Step 7: Assert that the new data is added.\n' +
     'Here is my code:\n';
 
   static readonly E2E_PROMPT_FOLLOWUP =
