@@ -98,10 +98,16 @@ export class HomeComponent {
   }
 
   clearInput() {
-    this.componentFiles = [];
-    this.endpointFiles = [];
-    this.otherFiles = [];
-    this.textInputForm.setValue('');
+    if (this.inputTypeForm.value === 'files') {
+      if (this.testTypeForm.value === 'e2e') {
+        this.componentFiles = [];
+      } else {
+        this.endpointFiles = [];
+      }
+      this.otherFiles = [];
+    } else {
+      this.textInputForm.setValue('');
+    }
   }
 
   handleAngularAutoDetect(event: any) {

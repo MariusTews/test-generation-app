@@ -10,7 +10,8 @@ export default class Prompts {
     'Try to find at least three critical paths in the scope of the components I provided. ' +
     'Write one test for each critical path. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
-    'Mock every HTTP request of any type which is called in the used components with an appropriate data response. ' +
+    'Mock every single HTTP request which is called during the test run with a fitting data response. ' +
+    'Also mock all HTTP requests which are called inside of the "ngOnInit()" method of a component. ' +
     'Use the following syntax for this: "await page.route("[url]", async route => {await route.fulfill({body: JSON.stringify([response])})})". ' +
     'Make sure that the first parameter of the route method always contains the corresponding url of the HTTP request which should be mocked. ' +
     'Do not use if-statements to mock multiple HTTP requests. ' +
@@ -24,6 +25,7 @@ export default class Prompts {
     'When using a fill or click call, then first create a separate variable for the selector. ' +
     'There is no "await" needed in front of such a variable declaration. ' +
     'To select a button inside of a menu, use the "menuitem" role. ' +
+    'If there are multiple elements which correspond to the locator, then use the "nth()" method to choose only one element. ' +
     'If you search by a name, label or a text which is taken from a constants file, then use the value from the constant variable. ' +
     'Do not explicitly wait for elements to be loaded. ' +
     'Do not create custom page objects. ' +
@@ -70,6 +72,7 @@ export default class Prompts {
     'When I run the test, it results in an error. ' +
     'Please try to fix the error by changing the code line or segment which causes the error. ' +
     'Return the same test code as before, but now with the changes made to fix the error. ' +
+    'If the initial code was already changed due to an error, then use the new code, in which this error was fixed, as new original code. ' +
     'Return only the code, do not add any other text or explanation. ' +
     'Here is some additional information about the error:\n';
 }
