@@ -35,7 +35,7 @@
           cdkAutosizeMaxRows="25"
           #autosize="cdkTextareaAutosize"
           id="input-area"
-          placeholder="Your code"
+          [placeholder]="textInputPlaceholder"
         ></textarea>
       </mat-form-field>
     </div>
@@ -150,6 +150,7 @@
         *ngIf="inputTypeForm.value == 'text'"
         color="primary"
         id="error-checkbox"
+        (click)="updateTextInputPlaceholder()"
         >Error solving mode</mat-checkbox
       >
       <button (click)="run()" class="btn btn-primary" id="generate-button">

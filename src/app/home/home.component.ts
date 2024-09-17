@@ -33,6 +33,7 @@ export class HomeComponent {
   autoDetectOtherFiles: OtherCodeItem[] = [];
   outputText = '';
   outputReceived = false;
+  textInputPlaceholder = 'Your code';
   copyCodeButtonText = 'Copy';
 
   textInputForm = new FormControl('', []);
@@ -472,6 +473,12 @@ export class HomeComponent {
       (this.testTypeForm.value === 'e2e' && this.componentFiles.length > 0) ||
       (this.testTypeForm.value === 'unit' && this.endpointFiles.length > 0)
     );
+  }
+
+  updateTextInputPlaceholder() {
+    this.textInputPlaceholder = this.isErrorForm.value
+      ? 'Error message, additional information'
+      : 'Your code';
   }
 
   copyCode() {
