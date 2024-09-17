@@ -48,6 +48,7 @@ export default class Prompts {
     ' for the temperature parameter. ' +
     'Write a unit test for a NestJS backend using the Jest test framework. ' +
     'Make sure to mock everything that needs to be mocked. ' +
+    'If you import other files from the src folder, then use a relative path using "../[path]" instead of "src/[path]". ' +
     'Do not import other files which are not used in the tests. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' +
     'If your answer is the final test code, return only the code. ' +
