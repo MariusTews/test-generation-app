@@ -47,7 +47,10 @@ export default class Prompts {
     Constants.TEMPERATURE +
     ' for the temperature parameter. ' +
     'Write a unit test for a NestJS backend using the Jest test framework. ' +
+    'Try to find at least one test case for each endpoint method. ' +
     'Make sure to mock everything that needs to be mocked. ' +
+    'If the same function needs to be mocked multiple times, then use "mockReturnValueOnce" multiple times on the same "jest.spyOn" statement. ' +
+    'At the end of each test, add senseful assertions that either test whether the return value is correct, or whether important funtions have been called correctly. ' +
     'If you import other files from the src folder, then do it like this: "import ExampleEntity from "../example/example.entity";". ' +
     'Do not import other files which are not used in the tests. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' +
@@ -55,9 +58,9 @@ export default class Prompts {
     'Here is my code:\n';
 
   static readonly UNIT_PROMPT_FOLLOWUP =
-    'Make sure once again that all requirements from the previous prompt are met. ' +
-    'If necessary, rewrite parts of the tests to meet the requirements. ' +
-    'Finally, return the overhauled test code.';
+    'Try to find more test cases for the endpoints I provided. ' +
+    'Add one test for each test case and return the new test code with all previous tests and potential new tests. ' +
+    'Make sure that all tests follow the rules which I provided to you in the last prompt.';
 
   // static readonly ERROR_PROMPT_INIT =
   //   'When I run the test, it results in an error. ' +
