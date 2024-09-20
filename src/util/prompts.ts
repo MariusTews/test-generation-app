@@ -48,8 +48,11 @@ export default class Prompts {
     ' for the temperature parameter. ' +
     'Write a unit test for a NestJS backend using the Jest test framework. ' +
     'Try to find at least one test case for each endpoint method. ' +
-    'Make sure to mock everything that needs to be mocked. ' +
+    'The tests should verify the correctness of the methods of the service class of each endpoint. ' +
+    'Therefore, mock every database access inside of these methods. ' +
     'If the same function needs to be mocked multiple times, then use "mockReturnValueOnce" multiple times on the same "jest.spyOn" statement. ' +
+    'Use "getRepositoryToken" to provide repositories for the tests. ' +
+    'If you create sample model data inside a test then make sure that all fields of the data are initialized. ' +
     'At the end of each test, add senseful assertions that either test whether the return value is correct, or whether important funtions have been called correctly. ' +
     'If you import other files from the src folder, then do it like this: "import ExampleEntity from "../example/example.entity";". ' +
     'Do not import other files which are not used in the tests. ' +
