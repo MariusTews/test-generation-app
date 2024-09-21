@@ -34,7 +34,7 @@ export default class Prompts {
     'Set the test timeout limit to 15 seconds by using the setTimeout method. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' +
     'If your answer is the final test code, return only the code. ' +
-    'Here is my code:\n';
+    'Here is my code and other input:\n';
 
   static readonly E2E_PROMPT_FOLLOWUP =
     'Try to find more critical paths in the scope of the components I provided. ' +
@@ -50,15 +50,18 @@ export default class Prompts {
     'Try to find at least one test case for each endpoint method. ' +
     'The tests should verify the correctness of the methods of the service class of each endpoint. ' +
     'Therefore, mock every database access inside of these methods. ' +
+    'Make sure that the return value inside of the mock statements has the correct type and contains all necessary fields. ' +
     'If the same function needs to be mocked multiple times, then use "mockReturnValueOnce" multiple times on the same "jest.spyOn" statement. ' +
     'Use "getRepositoryToken" to provide repositories for the tests. ' +
     'If you create sample model data inside a test then make sure that all fields of the data are initialized. ' +
+    'If a field referencing a different object is not important for the test, then set it to "null". ' +
     'At the end of each test, add senseful assertions that either test whether the return value is correct, or whether important funtions have been called correctly. ' +
     'If you import other files from the src folder, then do it like this: "import ExampleEntity from "../example/example.entity";". ' +
+    'It is important to use ".." instead of "src" here. ' +
     'Do not import other files which are not used in the tests. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' +
     'If your answer is the final test code, return only the code. ' +
-    'Here is my code:\n';
+    'Here is my code and other input:\n';
 
   static readonly UNIT_PROMPT_FOLLOWUP =
     'Try to find more test cases for the endpoints I provided. ' +

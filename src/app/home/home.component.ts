@@ -31,6 +31,7 @@ export class HomeComponent {
   autoDetectComponentFiles: ComponentItem[] = [];
   autoDetectEndpointFiles: EndpointItem[] = [];
   autoDetectOtherFiles: OtherCodeItem[] = [];
+  disableGenerateButton = false;
   outputText = '';
   outputReceived = false;
   textInputPlaceholder = 'Your code';
@@ -52,6 +53,7 @@ export class HomeComponent {
   constructor() {}
 
   async run() {
+    this.disableGenerateButton = true;
     this.outputReceived = false;
     this.copyCodeButtonText = 'Copy';
     let codeInput: any = '';
@@ -92,8 +94,10 @@ export class HomeComponent {
       } else {
         this.outputText = response1.text();
       }
+      this.disableGenerateButton = false;
       this.outputReceived = true;
     } catch (e) {
+      this.disableGenerateButton = false;
       this.outputText = 'Something went wrong!';
     }
   }
