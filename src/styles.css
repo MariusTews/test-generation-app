@@ -1,3 +1,43 @@
+html,
+body {
+  height: 100%;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mdc-checkbox
+  .mdc-checkbox__native-control:enabled:checked
+  ~ .mdc-checkbox__background,
+.mdc-checkbox
+  .mdc-checkbox__native-control:enabled:indeterminate
+  ~ .mdc-checkbox__background,
+.mdc-checkbox
+  .mdc-checkbox__native-control[data-indeterminate="true"]:enabled
+  ~ .mdc-checkbox__background {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+}
+
+.mat-accent {
+  --mat-option-selected-state-label-text-color: #6c757d !important;
+}
+
+html {
+  --mdc-checkbox-selected-focus-icon-color: #6c757d !important;
+  --mdc-checkbox-selected-hover-icon-color: #6c757d !important;
+  --mdc-checkbox-selected-icon-color: #6c757d !important;
+  --mdc-checkbox-selected-pressed-icon-color: #6c757d !important;
+  --mdc-checkbox-selected-focus-state-layer-color: #6c757d !important;
+  --mdc-checkbox-selected-hover-state-layer-color: #6c757d !important;
+  --mdc-checkbox-selected-pressed-state-layer-color: #6c757d !important;
+}
+
+.mdc-checkbox
+  .mdc-checkbox__native-control:enabled
+  ~ .mdc-checkbox__background
+  .mdc-checkbox__checkmark {
+  color: white !important;
+}

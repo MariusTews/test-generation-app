@@ -57,7 +57,7 @@ export default class Prompts {
     'If a field referencing a different object is not important for the test, then set it to "null". ' +
     'At the end of each test, add senseful assertions that either test whether the return value is correct, or whether important funtions have been called correctly. ' +
     'If you import other files from the src folder, then do it like this: "import ExampleEntity from "../example/example.entity";". ' +
-    'It is important to use ".." instead of "src" here. ' +
+    'It is important to use ".." instead of "src" here (do not include "src" at all in the path). ' +
     'Do not import other files which are not used in the tests. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' +
     'If your answer is the final test code, return only the code. ' +
