@@ -54,7 +54,7 @@ export default class Prompts {
     'If the same function needs to be mocked multiple times, then use "mockReturnValueOnce" multiple times on the same "jest.spyOn" statement. ' +
     'Use "getRepositoryToken" to provide repositories for the tests. ' +
     'If you create sample model data inside a test then make sure that all fields of the data are initialized. ' +
-    'If a field referencing a different object is not important for the test, then set it to "null". ' +
+    'If a field referencing a different object is not important for the test, then set it to a default object of that class using the "new" keyword. ' +
     'At the end of each test, add senseful assertions that either test whether the return value is correct, or whether important funtions have been called correctly. ' +
     'If you import other files from the src folder, then do it like this: "import ExampleEntity from "../example/example.entity";". ' +
     'It is important to use ".." instead of "src" here (do not include "src" at all in the path). ' +

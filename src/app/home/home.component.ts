@@ -90,7 +90,15 @@ export class HomeComponent {
           response2 = result2.response;
         }
         const lines = response2.text().split('\n');
-        this.outputText = lines.slice(1, lines.length - 1).join('\n');
+        let i = lines.length - 1;
+        while (i >= 0) {
+          if (lines[i].includes('```')) {
+            lines[i] = '';
+            break;
+          }
+          i--;
+        }
+        this.outputText = lines.slice(1).join('\n');
       } else {
         this.outputText = response1.text();
       }
