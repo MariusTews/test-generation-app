@@ -7,16 +7,17 @@ export default class Prompts {
     Constants.TEMPERATURE +
     ' for the temperature parameter. ' +
     'Write an end-to-end test for an Angular application using the Playwright test framework. ' +
-    'Try to find at least three critical paths in the scope of the components I provided. ' +
+    'Try to find critical paths in the scope of the components I provided. ' +
     'Write one test for each critical path. ' +
     'Assume that you are an authorized, already logged in user of the application. ' +
     'Mock every single HTTP request which is called during the test run with a fitting data response. ' +
+    'If the base url for the HTTP requests is provided in an environment file, then use it from there. ' +
     'Also mock all HTTP requests which are called inside of the "ngOnInit()" method of a component. ' +
     'Use the following syntax for this: "await page.route("[url]", async route => {await route.fulfill({body: JSON.stringify([response])})})". ' +
     'Make sure that the first parameter of the route method always contains the corresponding url of the HTTP request which should be mocked. ' +
     'Do not use if-statements to mock multiple HTTP requests. ' +
     'If the same HTTP request is called multiple times, then mock it multiple times. ' +
-    'Use page.goto("http://localhost:4200/[parameters]") to navigate to a fitting starting page for the test. ' +
+    'Use page.goto("http://localhost:4200/[parameters]") to navigate to a fitting starting page for the test after you have mocked all HTTP requests. ' +
     'To find the fitting route parameters, use the app routing module, if it is provided to you. ' +
     'Add meaningful assertions at the end of each test. ' +
     'Use locators that are resilient to changes in the DOM. ' +
@@ -38,6 +39,7 @@ export default class Prompts {
 
   static readonly E2E_PROMPT_FOLLOWUP =
     'Try to find more critical paths in the scope of the components I provided. ' +
+    'Especially try to find critical paths that visit multiple components, if there are multiple components provided to you. ' +
     'Add one test for each critical path and return the new test code with all previous tests and potential new tests. ' +
     'Make sure that all tests follow the rules which I provided to you in the last prompt.';
 
