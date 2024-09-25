@@ -28,12 +28,13 @@ export default class Prompts {
     'To select a button inside of a menu, use the "menuitem" role. ' +
     'If there are multiple elements which correspond to the locator, then use the "nth()" method to choose only one element. ' +
     'If you search by a name, label or a text which is taken from a constants file, then use the value from the constant variable. ' +
-    'Do not explicitly wait for elements to be loaded. ' +
+    'Do not explicitly wait for elements to be loaded (for example, do not use "await page.waitForNavigation();" as it is deprecated). ' +
     'Do not create custom page objects. ' +
     'Do not import other files which are not used in the tests. ' +
     'Assume that all paths for imports from the source files can start with src and that they can be imported without "{}". ' +
     'Set the test timeout limit to 15 seconds by using the setTimeout method. ' +
-    'If you need additional information or code to generate a good test, then prompt me for it. ' +
+    'Make sure that each test has a different name, that there are not two tests with the same name. ' +
+    'If you need additional information or code to generate a good test, then prompt me for it. ' + // basically never happens
     'If your answer is the final test code, return only the code. ' +
     'Here is my code and other input:\n';
 
@@ -61,7 +62,8 @@ export default class Prompts {
     'If you import other files from the src folder, then do it like this: "import ExampleEntity from "../example/example.entity";". ' +
     'It is important to use ".." instead of "src" here (do not include "src" at all in the path). ' +
     'Do not import other files which are not used in the tests. ' +
-    'If you need additional information or code to generate a good test, then prompt me for it. ' +
+    'Make sure that each test has a different name, that there are not two tests with the same name. ' +
+    'If you need additional information or code to generate a good test, then prompt me for it. ' + // basically never happens
     'If your answer is the final test code, return only the code. ' +
     'Here is my code and other input:\n';
 
