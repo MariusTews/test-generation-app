@@ -150,7 +150,11 @@ export class HomeComponent {
               this.autoDetectComponentFiles.push(item);
             }
           } else {
-            if (parts.at(-1) === 'ts' || parts.at(-1) === 'html') {
+            if (
+              parts.at(-1) === 'ts' ||
+              parts.at(-1) === 'html' ||
+              parts.at(-1) === 'json'
+            ) {
               if (
                 !(
                   (parts.length === 3 && parts[1] === 'module') ||

@@ -15,6 +15,7 @@ export default class Prompts {
     'Also mock all HTTP requests which are called inside of the "ngOnInit()" method of a component. ' +
     'Use the following syntax for this: "await page.route("[url]", async route => {await route.fulfill({body: JSON.stringify([response])})})". ' +
     'Make sure that the first parameter of the route method always contains the corresponding url of the HTTP request which should be mocked. ' +
+    'Inside this url, use a "*" symbol to replace parts like the query parameters if necessary. ' +
     'Do not use if-statements to mock multiple HTTP requests. ' +
     'If the same HTTP request is called multiple times, then mock it multiple times. ' +
     'Use page.goto("http://localhost:4200/[parameters]") to navigate to a fitting starting page for the test after you have mocked all HTTP requests. ' +
@@ -23,6 +24,10 @@ export default class Prompts {
     'Use locators that are resilient to changes in the DOM. ' +
     'Use locators such as getByText, getByRole or getByPlaceholder. ' +
     'Do not locate an element using an aria-label. ' +
+    'If you locate an element by its text or placeholder or something similar, which is an internationalized string, then make sure to use the real string instead of the placeholder string. ' +
+    'The language of the application is ' +
+    Constants.APPLICATION_LANGUAGE +
+    '. ' +
     'When using a fill or click call, then first create a separate variable for the selector. ' +
     'There is no "await" needed in front of such a variable declaration. ' +
     'To select a button inside of a menu, use the "menuitem" role. ' +
@@ -53,15 +58,17 @@ export default class Prompts {
     'Try to find at least one test case for each endpoint method. ' +
     'The tests should verify the correctness of the methods of the service class of each endpoint. ' +
     'Therefore, mock every database access inside of these methods. ' +
+    'Do not mock the service methods themself. ' +
     'Make sure that the return value inside of the mock statements has the correct type and contains all necessary fields. ' +
     'If the same function needs to be mocked multiple times, then use "mockResolvedValueOnce" multiple times on the same "jest.spyOn" statement. ' +
-    'Use "getRepositoryToken" to provide repositories for the tests. ' +
+    'If the service class uses repositories to interact with the database, then use "getRepositoryToken" to provide repositories for the tests. ' +
+    'If the service class uses models to interact with the database, then mock the models accordingly for the tests. ' +
     'If you create sample model data inside a test then make sure that all fields of the data are initialized. ' +
     'If a field referencing a different object is not important for the test, then set it to a default object of that class using the "new" keyword. ' +
     'Only initialize a field of an object in this way, do not initialize an object itself in this way. ' +
     'At the end of each test, add senseful assertions that either test whether the return value is correct, or whether important funtions have been called correctly. ' +
-    'If you import other files from the src folder, then do it like this: "import ExampleEntity from "../example/example.entity";". ' +
-    'It is important to use ".." instead of "src" here (do not include "src" at all in the path). ' +
+    // 'If you import other files from the src folder, then do it like this: "import ExampleEntity from "../example/example.entity";". ' +
+    // 'It is important to use ".." instead of "src" here (do not include "src" at all in the path). ' +
     'Do not import other files which are not used in the tests. ' +
     'Make sure that each test has a different name, that there are not two tests with the same name. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' + // basically never happens
