@@ -242,6 +242,7 @@ export class HomeComponent {
         }),
         type: type,
       },
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((result) => {

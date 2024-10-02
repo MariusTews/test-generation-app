@@ -55,12 +55,26 @@ export class AutoDetectDialogComponent {
     });
   }
 
-  onNoClick(): void {
+  cancel(): void {
     this.dialogRef.close({
       componentFiles: [],
       endpointFiles: [],
       otherFiles: [],
     });
+  }
+
+  updateAll1(select: boolean) {
+    for (let i = 0; i < this.length; i++) {
+      this.checklist[i] = select;
+    }
+    this.setSelection();
+  }
+
+  updateAll2(select: boolean) {
+    for (let i = this.length; i < this.length + this.otherFiles.length; i++) {
+      this.checklist[i] = select;
+    }
+    this.setSelection();
   }
 
   update(select: boolean, index: number) {
@@ -170,10 +184,28 @@ export class AutoDetectDialogComponent {
     }
   }
 
-  showH1(): boolean {
+  showUpperH1(): boolean {
     return (
       (this.type === 'e2e' && this.componentFiles.length > 0) ||
       (this.type === 'unit' && this.endpointFiles.length > 0)
     );
+  }
+
+  getUpperH1CheckboxState(): boolean {
+    for (let i = 0; i < this.length; i++) {
+      if (this.checklist[i]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  getLowerH1CheckboxState(): boolean {
+    for (let i = this.length; i < this.length + this.otherFiles.length; i++) {
+      if (this.checklist[i]) {
+        return true;
+      }
+    }
+    return false;
   }
 }

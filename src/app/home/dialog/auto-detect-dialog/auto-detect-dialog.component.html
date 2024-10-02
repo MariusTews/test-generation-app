@@ -5,7 +5,13 @@
       [formControl]="searchForm"
       id="search-form"
     />
-    <h1 *ngIf="showH1()">{{ type === "e2e" ? "Components" : "Endpoints" }}</h1>
+    <h1 *ngIf="showUpperH1()">
+      <mat-checkbox
+        [checked]="getUpperH1CheckboxState()"
+        (change)="updateAll1($event.checked)"
+      ></mat-checkbox
+      >{{ type === "e2e" ? "Components" : "Endpoints" }}
+    </h1>
     <div *ngIf="type === 'e2e'">
       <div *ngFor="let item of shownComponentFiles" class="file-list">
         <div class="file-item">
@@ -28,7 +34,13 @@
         </div>
       </div>
     </div>
-    <h1 id="lower-h1">Other Files</h1>
+    <h1 id="lower-h1">
+      <mat-checkbox
+        [checked]="getLowerH1CheckboxState()"
+        (change)="updateAll2($event.checked)"
+      ></mat-checkbox
+      >Other Files
+    </h1>
     <div *ngFor="let item of shownOtherFiles" class="file-list">
       <div class="file-item">
         <mat-checkbox
@@ -41,7 +53,7 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="cancel()">Cancel</button>
   <button mat-button [mat-dialog-close]="returnFiles" cdkFocusInitial>
     Select
   </button>
