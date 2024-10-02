@@ -54,18 +54,18 @@ export default class Prompts {
     'Write a unit test for a NestJS backend using the Jest test framework. ' +
     'Try to find at least one test case for each endpoint method. ' +
     'The tests should verify the correctness of the methods of the service class of each endpoint. ' +
-    'Therefore, mock every database access inside of these methods. ' +
+    'Therefore, mock every database access inside of these methods using "jest.spyOn" on database access objects like repositories or models. ' +
     'Do not mock the service methods themself. ' +
     'Make sure that the return value inside of the mock statements has the correct type and contains all necessary fields. ' +
     'If the same function needs to be mocked multiple times, then use "mockResolvedValueOnce" multiple times on the same "jest.spyOn" statement. ' +
     'If the service class uses repositories to interact with the database, then use "getRepositoryToken" to provide repositories for the tests. ' +
-    'If the service class uses models to interact with the database, then mock the models accordingly for the tests. ' +
+    'If the service class uses models to interact with the database, then try to find the correct way of mocking them. ' +
     'If you create sample model data inside a test then make sure that all fields of the data are initialized. ' +
     'If a field referencing a different object is not important for the test, then set it to a default object of that class using the "new" keyword. ' +
     'Only initialize a field of an object in this way, do not initialize an object itself in this way. ' +
     'At the end of each test, add senseful assertions that either test whether the return value is correct, or whether important funtions have been called correctly. ' +
-    // 'If you import other files from the src folder, then do it like this: "import ExampleEntity from "../example/example.entity";". ' +
-    // 'It is important to use ".." instead of "src" here (do not include "src" at all in the path). ' +
+    'If you import other files from the src folder, then do it like this: "import ExampleEntity from "../example/example.entity";". ' +
+    'It is important to use ".." instead of "src" here (do not include "src" at all in the path). ' +
     'Do not import other files which are not used in the tests. ' +
     'Make sure that each test has a different name, that there are not two tests with the same name. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' + // basically never happens
