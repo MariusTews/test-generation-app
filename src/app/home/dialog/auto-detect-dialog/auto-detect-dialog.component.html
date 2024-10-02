@@ -1,8 +1,13 @@
 <mat-dialog-content>
   <div id="container">
+    <input
+      placeholder="Search..."
+      [formControl]="searchForm"
+      id="search-form"
+    />
     <h1 *ngIf="showH1()">{{ type === "e2e" ? "Components" : "Endpoints" }}</h1>
     <div *ngIf="type === 'e2e'">
-      <div *ngFor="let item of componentFiles" class="file-list">
+      <div *ngFor="let item of shownComponentFiles" class="file-list">
         <div class="file-item">
           <mat-checkbox
             [checked]="checklist[componentFiles.indexOf(item)]"
@@ -13,7 +18,7 @@
       </div>
     </div>
     <div *ngIf="type === 'unit'">
-      <div *ngFor="let item of endpointFiles" class="file-list">
+      <div *ngFor="let item of shownEndpointFiles" class="file-list">
         <div class="file-item">
           <mat-checkbox
             [checked]="checklist[endpointFiles.indexOf(item)]"
@@ -24,7 +29,7 @@
       </div>
     </div>
     <h1 id="lower-h1">Other Files</h1>
-    <div *ngFor="let item of otherFiles" class="file-list">
+    <div *ngFor="let item of shownOtherFiles" class="file-list">
       <div class="file-item">
         <mat-checkbox
           [checked]="checklist[length + otherFiles.indexOf(item)]"

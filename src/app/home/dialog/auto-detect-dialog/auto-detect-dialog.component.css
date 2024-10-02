@@ -1,7 +1,13 @@
 #container {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
+  min-width: 20vw;
+  min-height: 70vh;
+}
+
+#search-form {
+  margin-bottom: 1em;
 }
 
 .file-list {

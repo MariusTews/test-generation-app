@@ -25,9 +25,6 @@ export default class Prompts {
     'Use locators such as getByText, getByRole or getByPlaceholder. ' +
     'Do not locate an element using an aria-label. ' +
     'If you locate an element by its text or placeholder or something similar, which is an internationalized string, then make sure to use the real string instead of the placeholder string. ' +
-    'The language of the application is ' +
-    Constants.APPLICATION_LANGUAGE +
-    '. ' +
     'When using a fill or click call, then first create a separate variable for the selector. ' +
     'There is no "await" needed in front of such a variable declaration. ' +
     'To select a button inside of a menu, use the "menuitem" role. ' +

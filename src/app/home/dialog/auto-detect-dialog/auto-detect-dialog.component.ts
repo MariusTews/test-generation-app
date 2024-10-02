@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import ComponentItem from 'src/util/component-item';
 import EndpointItem from 'src/util/endpoint-item';
@@ -14,9 +15,14 @@ export class AutoDetectDialogComponent {
   readonly data = inject<any>(MAT_DIALOG_DATA);
 
   componentFiles: ComponentItem[] = this.data.componentFiles;
+  shownComponentFiles: ComponentItem[] = this.data.componentFiles;
   endpointFiles: EndpointItem[] = this.data.endpointFiles;
+  shownEndpointFiles: EndpointItem[] = this.data.endpointFiles;
   otherFiles: OtherCodeItem[] = this.data.otherFiles;
+  shownOtherFiles: OtherCodeItem[] = this.data.otherFiles;
   type: string = this.data.type;
+
+  searchForm = new FormControl('', []);
 
   length: number = 0;
   checklist: boolean[] = [];
@@ -32,6 +38,21 @@ export class AutoDetectDialogComponent {
     }
     this.getPresetFromCookies();
     this.setSelection();
+
+    this.searchForm.statusChanges.subscribe(() => {
+      if (this.type === 'e2e') {
+        this.shownComponentFiles = this.componentFiles.filter((item) => {
+          return item.name.startsWith(this.searchForm.value + '');
+        });
+      } else {
+        this.shownEndpointFiles = this.endpointFiles.filter((item) => {
+          return item.name.startsWith(this.searchForm.value + '');
+        });
+      }
+      this.shownOtherFiles = this.otherFiles.filter((item) => {
+        return item.name.startsWith(this.searchForm.value + '');
+      });
+    });
   }
 
   onNoClick(): void {
