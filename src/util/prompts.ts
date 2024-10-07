@@ -77,6 +77,14 @@ export default class Prompts {
     'Add one test for each test case and return the new test code with all previous tests and potential new tests. ' +
     'Make sure that all tests follow the rules which I provided to you in the last prompt.';
 
+  static readonly ERROR_PROMPT_INIT =
+    'When I run the test, it results in an error. ' +
+    'Please try to fix the error by changing the code line or segment which causes the error. ' +
+    'Return the same test code as before, but now with the changes made to fix the error. ' +
+    'If the initial code was already changed due to an error, then use the new code, in which this error was fixed, as new original code. ' +
+    'Return only the code, do not add any other text or explanation. ' +
+    'Here is some additional information about the error:\n';
+
   // static readonly ERROR_PROMPT_INIT =
   //   'When I run the test, it results in an error. ' +
   //   'Please try to fix the error by changing the code line or segment which causes the error. ' +
@@ -86,12 +94,4 @@ export default class Prompts {
   //   '(1) value = 0\n' +
   //   '(2) value = 1\n' +
   //   'Here is some additional information about the error:\n';
-
-  static readonly ERROR_PROMPT_INIT =
-    'When I run the test, it results in an error. ' +
-    'Please try to fix the error by changing the code line or segment which causes the error. ' +
-    'Return the same test code as before, but now with the changes made to fix the error. ' +
-    'If the initial code was already changed due to an error, then use the new code, in which this error was fixed, as new original code. ' +
-    'Return only the code, do not add any other text or explanation. ' +
-    'Here is some additional information about the error:\n';
 }
