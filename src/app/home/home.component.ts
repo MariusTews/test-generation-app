@@ -509,7 +509,7 @@ export class HomeComponent {
     const data = window.URL.createObjectURL(newBlob);
     const link = document.createElement('a');
     link.href = data;
-    link.download = 'e2e.spec.ts';
+    link.download = 'test.spec.ts';
     link.click();
   }
 
