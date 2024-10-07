@@ -206,3 +206,25 @@ label[for="folder2"] {
     right: -5rem;
   }
 }
+
+@media (height < 700px) {
+  #text-input {
+    margin-top: 0;
+  }
+
+  #file-input {
+    height: 60vh;
+  }
+
+  .auto-detect-button {
+    margin-top: 0;
+  }
+
+  #output-control {
+    margin-top: 0.2em;
+  }
+
+  #output {
+    height: 72.5vh;
+  }
+}
