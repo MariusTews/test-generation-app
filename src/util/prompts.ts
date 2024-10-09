@@ -57,9 +57,14 @@ export default class Prompts {
     'Therefore, mock every database access inside of these methods using "jest.spyOn" on database access objects like repositories or models. ' +
     'Do not mock the service methods themself. ' +
     'Make sure that the return value inside of the mock statements has the correct type and contains all necessary fields. ' +
-    'If the same function needs to be mocked multiple times, then use "mockResolvedValueOnce" multiple times on the same "jest.spyOn" statement. ' +
+    'Use "as any" to fix type errors inside of "mockResolvedValueOnce" or "mockReturnValueOnce" statements. ' +
+    'If the same function needs to be mocked multiple times, then use "mockResolvedValueOnce" or "mockReturnValueOnce" multiple times on the same "jest.spyOn" statement. ' +
     'If the service class uses repositories to interact with the database, then use "getRepositoryToken" to provide repositories for the tests. ' +
-    'If the service class uses models to interact with the database, then try to find the correct way of mocking them. ' +
+    'If the service class uses models to interact with the database, then use "getModelToken" to provide models for the tests. ' +
+    'If the database access uses chained calls like "this.model.findByIdAndUpdate(...).exec()", then mock it like this: ' +
+    '"jest.spyOn(model, "findByIdAndUpdate").mockReturnThis().mockReturnValue({exec: jest.fn().mockResolvedValueOnce(...),} as any)". ' +
+    'If the service methods use a datasource, then mock it too. ' +
+    'Mock all methods connected to the datasource already when creating the testing module and not in the tests themself. ' +
     'If you create sample model data inside a test then make sure that all fields of the data are initialized. ' +
     'If a field referencing a different object is not important for the test, then set it to a default object of that class using the "new" keyword. ' +
     'Only initialize a field of an object in this way, do not initialize an object itself in this way. ' +
