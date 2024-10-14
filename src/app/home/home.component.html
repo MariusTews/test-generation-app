@@ -21,6 +21,7 @@
         [formControl]="interactiveModeForm"
         id="mode-toggle"
         class="mx-1"
+        (click)="resetInteractiveModeInit()"
         >Interactive mode</mat-slide-toggle
       >
     </h1>
@@ -163,7 +164,7 @@
         [formControl]="instructionForm"
         class="form-control"
         id="instruction-input"
-        *ngIf="interactiveModeForm.value"
+        *ngIf="interactiveModeForm.value && !interactiveModeInit"
       />
       <button
         (click)="run()"
@@ -171,7 +172,11 @@
         id="generate-button"
         [disabled]="disableGenerateButton"
       >
-        Generate output
+        {{
+          interactiveModeForm.value && interactiveModeInit
+            ? "Initialize test"
+            : "Generate output"
+        }}
       </button>
     </div>
   </div>

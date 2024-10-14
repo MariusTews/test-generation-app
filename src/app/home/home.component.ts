@@ -32,6 +32,7 @@ export class HomeComponent {
   autoDetectComponentFiles: ComponentItem[] = [];
   autoDetectEndpointFiles: EndpointItem[] = [];
   autoDetectOtherFiles: OtherCodeItem[] = [];
+  interactiveModeInit = true;
   disableGenerateButton = false;
   outputText = '';
   outputReceived = false;
@@ -54,6 +55,7 @@ export class HomeComponent {
   errorPromptInit = Prompts.ERROR_PROMPT_INIT;
 
   e2ePromptInitInteractive = InteractivePrompts.E2E_PROMPT_INIT;
+  e2ePromptInstruction = InteractivePrompts.E2E_PROMPT_INSTRUCTION;
 
   constructor() {}
 
@@ -61,18 +63,26 @@ export class HomeComponent {
     this.disableGenerateButton = true;
     this.outputReceived = false;
     this.copyCodeButtonText = 'Copy';
-    let codeInput: any = '';
-    if (this.inputTypeForm.value === 'text') {
-      codeInput = this.textInputForm.value;
+    let input: any = '';
+    if (this.interactiveModeForm.value && !this.interactiveModeInit) {
+      input = this.instructionForm.value;
+    } else if (this.inputTypeForm.value === 'text') {
+      input = this.textInputForm.value;
     } else if (this.inputTypeForm.value === 'files') {
-      codeInput = this.generateCodeInput();
+      input = this.generateCodeInput();
     }
     let prompt = '';
     let promptInit = '';
     if (this.testTypeForm.value === 'e2e') {
-      promptInit = this.interactiveModeForm.value
-        ? this.e2ePromptInitInteractive
-        : this.e2ePromptInit;
+      if (this.interactiveModeForm.value) {
+        if (this.interactiveModeInit) {
+          promptInit = this.e2ePromptInitInteractive;
+        } else {
+          promptInit = this.e2ePromptInstruction;
+        }
+      } else {
+        promptInit = this.e2ePromptInit;
+      }
     } else {
       promptInit = this.unitPromptInit;
     }
@@ -81,9 +91,9 @@ export class HomeComponent {
       this.isErrorForm.value &&
       !this.interactiveModeForm.value
     ) {
-      prompt = this.errorPromptInit + codeInput;
+      prompt = this.errorPromptInit + input;
     } else {
-      prompt = promptInit + codeInput;
+      prompt = promptInit + input;
     }
     this.outputText = 'Generating output...';
     try {
@@ -112,6 +122,9 @@ export class HomeComponent {
         this.outputText = lines.slice(1).join('\n');
       } else {
         this.outputText = response1.text();
+      }
+      if (this.interactiveModeInit) {
+        this.interactiveModeInit = false;
       }
       this.disableGenerateButton = false;
       this.outputReceived = true;
@@ -493,6 +506,10 @@ export class HomeComponent {
       return element !== item;
     });
     this.textInputForm.setValue(this.generateCodeInput());
+  }
+
+  resetInteractiveModeInit() {
+    this.interactiveModeInit = true;
   }
 
   showClearFileButton(): boolean {
