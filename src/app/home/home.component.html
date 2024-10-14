@@ -182,7 +182,10 @@
   </div>
   <div id="output-container">
     <h1>Output:</h1>
-    <pre id="output" class="border">{{ outputText }}</pre>
+    <pre
+      id="output"
+      class="border"
+    ><code [highlight]="outputText" language="typescript"></code></pre>
     <div id="output-control" *ngIf="outputReceived">
       <button
         class="btn btn-secondary mx-1 output-control-button"

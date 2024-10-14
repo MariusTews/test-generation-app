@@ -184,8 +184,7 @@ label[for="folder2"] {
   overflow-x: auto;
   width: 80%;
   height: 75.5vh;
-  padding: 3px;
-  background-color: rgb(245, 245, 245);
+  background-color: #1e1e1e;
 }
 
 @media (width < 1350px) {

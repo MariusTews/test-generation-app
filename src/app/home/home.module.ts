@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { Highlight } from 'ngx-highlightjs';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -29,6 +31,19 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     FormsModule,
     ReactiveFormsModule,
     ClipboardModule,
+    Highlight,
+  ],
+  providers: [
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        lineNumbersLoader: () => import('ngx-highlightjs/line-numbers'),
+        languages: {
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+        },
+      },
+    },
   ],
 })
 export class HomeModule {}
