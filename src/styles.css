@@ -92,3 +92,7 @@ html {
   ) !important;
   --mdc-switch-selected-track-color: var(--replacement-color) !important;
 }
+
+.mdc-dialog .mdc-dialog__content {
+  padding: 0px 24px 20px 24px !important;
+}

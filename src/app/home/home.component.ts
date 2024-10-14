@@ -135,6 +135,7 @@ export class HomeComponent {
       if (this.interactiveModeInit) {
         this.interactiveModeInit = false;
       }
+      this.instructionForm.setValue('');
       this.disableGenerateButton = false;
       this.outputReceived = true;
     } catch (e) {

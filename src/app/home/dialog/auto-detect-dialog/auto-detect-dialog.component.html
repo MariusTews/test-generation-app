@@ -1,11 +1,13 @@
 <mat-dialog-content>
-  <div id="container">
+  <div id="padding">
     <input
       placeholder="Search..."
       [formControl]="searchForm"
       id="search-form"
       class="form-control"
     />
+  </div>
+  <div id="container">
     <h1 *ngIf="showUpperH1()">
       <mat-checkbox
         [checked]="getUpperH1CheckboxState()"

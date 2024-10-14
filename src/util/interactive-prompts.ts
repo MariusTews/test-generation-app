@@ -30,7 +30,8 @@ export default class InteractivePrompts {
     'At first, generate such a test which only contains the general test structure. ' +
     'Then, add one test for the first service method of the provided endpoint.' +
     'Follow these instructions for this test: ' +
-    '' +
+    'Mock every database access using "jest.spyOn". ' +
+    'Add senseful assertions at the end of the test. ' +
     'Return only this test code and use my further instructions to build and improve the test step by step. ' +
     'Do not add any other explanation or text, only return the test code. ' +
     'Here is my code:\n';
