@@ -55,7 +55,8 @@ export class HomeComponent {
   errorPromptInit = Prompts.ERROR_PROMPT_INIT;
 
   e2ePromptInitInteractive = InteractivePrompts.E2E_PROMPT_INIT;
-  e2ePromptInstruction = InteractivePrompts.E2E_PROMPT_INSTRUCTION;
+  unitPromptInitInteractive = InteractivePrompts.UNIT_PROMPT_INIT;
+  promptInstructionInit = InteractivePrompts.PROMPT_INSTRUCTION_INIT;
 
   constructor() {}
 
@@ -78,13 +79,21 @@ export class HomeComponent {
         if (this.interactiveModeInit) {
           promptInit = this.e2ePromptInitInteractive;
         } else {
-          promptInit = this.e2ePromptInstruction;
+          promptInit = this.promptInstructionInit;
         }
       } else {
         promptInit = this.e2ePromptInit;
       }
     } else {
-      promptInit = this.unitPromptInit;
+      if (this.interactiveModeForm.value) {
+        if (this.interactiveModeInit) {
+          promptInit = this.unitPromptInitInteractive;
+        } else {
+          promptInit = this.promptInstructionInit;
+        }
+      } else {
+        promptInit = this.unitPromptInit;
+      }
     }
     if (
       this.inputTypeForm.value === 'text' &&

@@ -21,6 +21,20 @@ export default class InteractivePrompts {
     'Do not add any other explanation or text, only return the test code. ' +
     'Here is my code:\n';
 
-  static readonly E2E_PROMPT_INSTRUCTION =
+  static readonly UNIT_PROMPT_INIT =
+    'This is the start of a new, isolated conversation. ' +
+    'Use the value ' +
+    Constants.TEMPERATURE +
+    ' for the temperature parameter. ' +
+    'The goal of this conversation is to produce a unit test for a NestJS backend using the Jest test framework. ' +
+    'At first, generate such a test which only contains the general test structure. ' +
+    'Then, add one test for the first service method of the provided endpoint.' +
+    'Follow these instructions for this test: ' +
+    '' +
+    'Return only this test code and use my further instructions to build and improve the test step by step. ' +
+    'Do not add any other explanation or text, only return the test code. ' +
+    'Here is my code:\n';
+
+  static readonly PROMPT_INSTRUCTION_INIT =
     'Apply this instruction to the test code and return only the new test code:\n';
 }
