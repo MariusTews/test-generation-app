@@ -19,6 +19,7 @@ export default class InteractivePrompts {
     'Set the test timeout limit to 15 seconds by using the setTimeout method. ' +
     'Return only this test code and use my further instructions to build and improve the test step by step. ' +
     'Do not add any other explanation or text, only return the test code. ' +
+    'Use code comments as placeholders to mark places where additional code needs to be inserted. ' +
     'Here is my code:\n';
 
   static readonly UNIT_PROMPT_INIT =
@@ -34,6 +35,7 @@ export default class InteractivePrompts {
     'Add senseful assertions at the end of the test. ' +
     'Return only this test code and use my further instructions to build and improve the test step by step. ' +
     'Do not add any other explanation or text, only return the test code. ' +
+    'Use code comments as placeholders to mark places where additional code needs to be inserted. ' +
     'Here is my code:\n';
 
   static readonly PROMPT_INSTRUCTION_INIT =
