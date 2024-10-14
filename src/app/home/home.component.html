@@ -17,6 +17,12 @@
           ><mat-icon class="mx-1">code</mat-icon></mat-button-toggle
         >
       </mat-button-toggle-group>
+      <mat-slide-toggle
+        [formControl]="interactiveModeForm"
+        id="mode-toggle"
+        class="mx-1"
+        >Interactive mode</mat-slide-toggle
+      >
     </h1>
     <div id="text-input" *ngIf="inputTypeForm.value == 'text'">
       <button
@@ -147,7 +153,7 @@
     <div id="send-area">
       <mat-checkbox
         [formControl]="isErrorForm"
-        *ngIf="inputTypeForm.value == 'text'"
+        *ngIf="!interactiveModeForm.value && inputTypeForm.value == 'text'"
         id="error-checkbox"
         (click)="updateTextInputPlaceholder()"
         >Error solving mode</mat-checkbox

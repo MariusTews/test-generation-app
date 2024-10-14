@@ -37,9 +37,10 @@ export class HomeComponent {
   textInputPlaceholder = 'Your code';
   copyCodeButtonText = 'Copy';
 
-  textInputForm = new FormControl('', []);
-  inputTypeForm = new FormControl('files', []);
   testTypeForm = new FormControl('e2e', []);
+  interactiveModeForm = new FormControl(false, []);
+  inputTypeForm = new FormControl('files', []);
+  textInputForm = new FormControl('', []);
   isErrorForm = new FormControl(false, []);
 
   readonly dialog = inject(MatDialog);

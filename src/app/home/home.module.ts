@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -24,6 +25,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatButtonModule,
     MatButtonToggleModule,
     MatCheckboxModule,
+    MatSlideToggleModule,
     FormsModule,
     ReactiveFormsModule,
     ClipboardModule,

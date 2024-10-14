@@ -37,6 +37,11 @@ h1 {
   font-size: 1.25rem;
 }
 
+#mode-toggle {
+  width: 3em;
+  font-size: 1.25rem;
+}
+
 #text-input {
   width: 80%;
   margin-top: 1em;
@@ -177,7 +182,7 @@ label[for="folder2"] {
   background-color: rgb(245, 245, 245);
 }
 
-@media (width < 1000px) {
+@media (width < 1350px) {
   #content {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
