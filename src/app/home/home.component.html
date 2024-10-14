@@ -158,6 +158,13 @@
         (click)="updateTextInputPlaceholder()"
         >Error solving mode</mat-checkbox
       >
+      <input
+        placeholder="Instruction"
+        [formControl]="instructionForm"
+        class="form-control"
+        id="instruction-input"
+        *ngIf="interactiveModeForm.value"
+      />
       <button
         (click)="run()"
         class="btn btn-primary"

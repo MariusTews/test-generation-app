@@ -15,6 +15,7 @@ import OtherCodeItem from 'src/util/other-code-item';
 import { AutoDetectDialogComponent } from './dialog/auto-detect-dialog/auto-detect-dialog.component';
 import EndpointItem from 'src/util/endpoint-item';
 import Prompts from 'src/util/prompts';
+import InteractivePrompts from 'src/util/interactive-prompts';
 
 @Component({
   selector: 'app-home',
@@ -41,6 +42,7 @@ export class HomeComponent {
   interactiveModeForm = new FormControl(false, []);
   inputTypeForm = new FormControl('files', []);
   textInputForm = new FormControl('', []);
+  instructionForm = new FormControl('', []);
   isErrorForm = new FormControl(false, []);
 
   readonly dialog = inject(MatDialog);
@@ -50,6 +52,8 @@ export class HomeComponent {
   unitPromptInit = Prompts.UNIT_PROMPT_INIT;
   unitPromptFollowUp = Prompts.UNIT_PROMPT_FOLLOWUP;
   errorPromptInit = Prompts.ERROR_PROMPT_INIT;
+
+  e2ePromptInitInteractive = InteractivePrompts.E2E_PROMPT_INIT;
 
   constructor() {}
 
@@ -66,11 +70,17 @@ export class HomeComponent {
     let prompt = '';
     let promptInit = '';
     if (this.testTypeForm.value === 'e2e') {
-      promptInit = this.e2ePromptInit;
+      promptInit = this.interactiveModeForm.value
+        ? this.e2ePromptInitInteractive
+        : this.e2ePromptInit;
     } else {
       promptInit = this.unitPromptInit;
     }
-    if (this.inputTypeForm.value === 'text' && this.isErrorForm.value) {
+    if (
+      this.inputTypeForm.value === 'text' &&
+      this.isErrorForm.value &&
+      !this.interactiveModeForm.value
+    ) {
       prompt = this.errorPromptInit + codeInput;
     } else {
       prompt = promptInit + codeInput;
@@ -82,7 +92,7 @@ export class HomeComponent {
       if (response1.text().startsWith('```')) {
         this.outputText = 'Refining output...';
         let response2 = response1;
-        if (!this.isErrorForm.value) {
+        if (!this.isErrorForm.value && !this.interactiveModeForm.value) {
           const promptFollowUp =
             this.testTypeForm.value === 'e2e'
               ? this.e2ePromptFollowUp
