@@ -122,7 +122,6 @@ export class HomeComponent {
       prompt = promptInit + input;
     }
     this.outputText = 'Generating output...';
-    console.log(prompt);
     try {
       const result1 = await this.chat.sendMessage(prompt);
       const response1 = result1.response;
