@@ -56,6 +56,7 @@ export class HomeComponent {
 
   e2ePromptInitInteractive = InteractivePrompts.E2E_PROMPT_INIT;
   unitPromptInitInteractive = InteractivePrompts.UNIT_PROMPT_INIT;
+  additionalInputPrompt = InteractivePrompts.ADDITIONAL_INPUT_PROMPT;
   promptInstructionInit = InteractivePrompts.PROMPT_INSTRUCTION_INIT;
 
   constructor() {}
@@ -65,12 +66,28 @@ export class HomeComponent {
     this.outputReceived = false;
     this.copyCodeButtonText = 'Copy';
     let input: any = '';
-    if (this.interactiveModeForm.value && !this.interactiveModeInit) {
-      input = this.instructionForm.value;
-    } else if (this.inputTypeForm.value === 'text') {
+    if (this.inputTypeForm.value === 'text') {
       input = this.textInputForm.value;
     } else if (this.inputTypeForm.value === 'files') {
       input = this.generateCodeInput();
+    }
+    if (this.interactiveModeForm.value && !this.interactiveModeInit) {
+      if (
+        (this.testTypeForm.value === 'e2e' && this.componentFiles.length > 0) ||
+        (this.testTypeForm.value === 'unit' && this.endpointFiles.length > 0) ||
+        this.otherFiles.length > 0 ||
+        this.textInputForm.value !== ''
+      ) {
+        input =
+          this.instructionForm.value +
+          '\n' +
+          this.additionalInputPrompt +
+          input;
+      } else {
+        {
+          input = this.instructionForm.value;
+        }
+      }
     }
     let prompt = '';
     let promptInit = '';
@@ -105,6 +122,7 @@ export class HomeComponent {
       prompt = promptInit + input;
     }
     this.outputText = 'Generating output...';
+    console.log(prompt);
     try {
       const result1 = await this.chat.sendMessage(prompt);
       const response1 = result1.response;
@@ -134,6 +152,15 @@ export class HomeComponent {
       }
       if (this.interactiveModeInit) {
         this.interactiveModeInit = false;
+      }
+      if (this.interactiveModeForm.value) {
+        if (this.testTypeForm.value === 'e2e') {
+          this.componentFiles = [];
+        } else {
+          this.endpointFiles = [];
+        }
+        this.otherFiles = [];
+        this.textInputForm.setValue('');
       }
       this.instructionForm.setValue('');
       this.disableGenerateButton = false;

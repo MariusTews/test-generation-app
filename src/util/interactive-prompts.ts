@@ -38,6 +38,8 @@ export default class InteractivePrompts {
     'Use code comments as placeholders to mark places where additional code needs to be inserted. ' +
     'Here is my code:\n';
 
+  static readonly ADDITIONAL_INPUT_PROMPT = 'Here is some additional input:\n';
+
   static readonly PROMPT_INSTRUCTION_INIT =
     'Apply this instruction to the test code and return only the new test code:\n';
 }
