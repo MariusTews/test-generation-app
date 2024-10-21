@@ -38,18 +38,14 @@ html {
   --mdc-checkbox-selected-pressed-icon-color: var(
     --replacement-color
   ) !important;
-  --mdc-checkbox-selected-focus-state-layer-color: var(
-    --replacement-color
-  ) !important;
+  --mdc-checkbox-selected-focus-state-layer-color: transparent !important;
   --mdc-checkbox-selected-hover-state-layer-color: var(
     --replacement-color
   ) !important;
   --mdc-checkbox-selected-pressed-state-layer-color: var(
     --replacement-color
   ) !important;
-  --mdc-checkbox-unselected-focus-state-layer-color: var(
-    --replacement-color
-  ) !important;
+  --mdc-checkbox-unselected-focus-state-layer-color: transparent !important;
   --mdc-checkbox-unselected-hover-state-layer-color: var(
     --replacement-color
   ) !important;
