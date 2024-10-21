@@ -544,8 +544,9 @@ export class HomeComponent {
     this.textInputForm.setValue(this.generateCodeInput());
   }
 
-  resetInteractiveModeInit() {
+  onInteractiveModeChange() {
     this.interactiveModeInit = true;
+    this.updateTextInputPlaceholder();
   }
 
   showClearFileButton(): boolean {
@@ -557,9 +558,13 @@ export class HomeComponent {
   }
 
   updateTextInputPlaceholder() {
-    this.textInputPlaceholder = this.isErrorForm.value
-      ? 'Error message, additional information'
-      : 'Your code';
+    if (this.interactiveModeForm.value) {
+      this.textInputPlaceholder = 'Additional information';
+    } else {
+      this.textInputPlaceholder = this.isErrorForm.value
+        ? 'Error message, additional information'
+        : 'Your code';
+    }
   }
 
   copyCode() {
