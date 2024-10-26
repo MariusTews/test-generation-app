@@ -41,5 +41,8 @@ export default class InteractivePrompts {
   static readonly ADDITIONAL_INPUT_PROMPT = 'Here is some additional input:\n';
 
   static readonly PROMPT_INSTRUCTION_INIT =
-    'Apply this instruction to the test code and return only the new test code:\n';
+    'I will provide you with an instruction. ' +
+    'Use this instruction only for your next answer unless I say otherwise in the instruction. ' +
+    'Apply only this instruction to the test code and return only the resulting new test code in your next answer. ' +
+    'This is the instruction:\n';
 }
