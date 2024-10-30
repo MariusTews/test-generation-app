@@ -18,6 +18,7 @@ export default class InteractivePrompts {
     'Add meaningful assertions by using "await expect..." statements at the end of the test. ' +
     'Set the test timeout limit to 15 seconds by using the setTimeout method. ' +
     'Return only this test code and use my further instructions to build and improve the test step by step. ' +
+    'Only add more tests when I give you an instruction to do so. ' +
     'Do not add any other explanation or text, only return the test code. ' +
     'Use code comments as placeholders to mark places where additional code needs to be inserted. ' +
     'Here is my code:\n';
@@ -34,6 +35,7 @@ export default class InteractivePrompts {
     'Mock every database access using "jest.spyOn". ' +
     'Add senseful assertions at the end of the test. ' +
     'Return only this test code and use my further instructions to build and improve the test step by step. ' +
+    'Only add more tests when I give you an instruction to do so. ' +
     'Do not add any other explanation or text, only return the test code. ' +
     'Use code comments as placeholders to mark places where additional code needs to be inserted. ' +
     'Here is my code:\n';
@@ -42,7 +44,7 @@ export default class InteractivePrompts {
 
   static readonly PROMPT_INSTRUCTION_INIT =
     'I will provide you with an instruction. ' +
-    'Use this instruction only for your next answer unless I say otherwise in the instruction. ' +
+    'Use this instruction only for your next answer. ' +
     'Apply only this instruction to the test code and return only the resulting new test code in your next answer. ' +
     'This is the instruction:\n';
 }
