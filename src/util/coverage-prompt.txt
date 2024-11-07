@@ -1,0 +1,6 @@
+Apply the following instructions to the test code to prepare it for code coverage measurements:
+1. Add "const MCR = require("monocart-coverage-reports");" before setting the timeout
+2. Add "const coverageReport = MCR({name: "My Coverage Report", outputDir: "./coverage-reports", reports: ["v8"],});" as variable to the test (after setting the timeout)
+3. Add "await page.coverage.startJSCoverage();" at the beginning of each test
+4. Add "const coverage = await page.coverage.stopJSCoverage();" and "await coverageReport.add(coverage);" at the end of each test
+5. Add "await coverageReport.generate();" as the last code line of the last test (directly after "await coverageReport.add(coverage);")
