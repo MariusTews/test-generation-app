@@ -20,7 +20,6 @@ export default class Prompts {
     'If the same HTTP request is called multiple times, then mock it multiple times. ' +
     'Use page.goto("http://localhost:4200/[parameters]") to navigate to a fitting starting page for the test after you have mocked all HTTP requests. ' +
     'To find the fitting route parameters, use the app routing module, if it is provided to you. ' +
-    'Add meaningful assertions by using "await expect..." statements at the end of each test. ' +
     'Use locators that are resilient to changes in the DOM. ' +
     'Use locators such as getByText, getByRole or getByPlaceholder. ' +
     'Do not locate an element using an aria-label. ' +
@@ -29,6 +28,7 @@ export default class Prompts {
     'There is no "await" needed in front of such a variable declaration. ' +
     'To select a button inside of a menu, use the "menuitem" role. ' +
     'If there are multiple elements which correspond to the locator, then use the "nth()" method to choose only one element. ' +
+    'Add meaningful assertions by using "await expect..." statements at the end of each test. ' +
     'If you search by a name, label or a text which is taken from a constants file, then use the value from the constant variable. ' +
     'Do not explicitly wait for elements to be loaded (for example, do not use "waitForNavigation" or "waitForSelector"). ' +
     'Do not create custom page objects. ' +
@@ -70,7 +70,6 @@ export default class Prompts {
     'Only initialize a field of an object in this way, do not initialize an object itself in this way. ' +
     'At the end of each test, add senseful assertions that either test whether the return value is correct, or whether important funtions have been called correctly. ' +
     'If you import other files from the src folder, then do it like this: "import ExampleEntity from "../example/example.entity";". ' +
-    'It is important to use ".." instead of "src" here (do not include "src" at all in the path). ' +
     'Do not import other files which are not used in the tests. ' +
     'Make sure that each test has a different name, that there are not two tests with the same name. ' +
     'If you need additional information or code to generate a good test, then prompt me for it. ' + // basically never happens
