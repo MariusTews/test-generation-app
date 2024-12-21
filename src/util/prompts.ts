@@ -29,6 +29,8 @@ export default class Prompts {
     'To select a button inside of a menu, use the "menuitem" role. ' +
     'If there are multiple elements which correspond to the locator, then use the "nth()" method to choose only one element. ' +
     'Add meaningful assertions by using "await expect..." statements at the end of each test. ' +
+    'Avoid asserting whether the url has a certain value. ' +
+    'Instead assert that a fitting element is visible.' +
     'If you search by a name, label or a text which is taken from a constants file, then use the value from the constant variable. ' +
     'Do not explicitly wait for elements to be loaded (for example, do not use "waitForNavigation" or "waitForSelector"). ' +
     'Do not create custom page objects. ' +

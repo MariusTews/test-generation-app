@@ -54,8 +54,8 @@ export class HomeComponent {
   unitPromptFollowUp = Prompts.UNIT_PROMPT_FOLLOWUP;
   errorPromptInit = Prompts.ERROR_PROMPT_INIT;
 
-  e2ePromptInitInteractive = InteractivePrompts.E2E_PROMPT_INIT;
-  unitPromptInitInteractive = InteractivePrompts.UNIT_PROMPT_INIT;
+  e2ePromptInitInteractive = InteractivePrompts.E2E_PROMPT_INIT_INTERACTIVE;
+  unitPromptInitInteractive = InteractivePrompts.UNIT_PROMPT_INIT_INTERACTIVE;
   additionalInputPrompt = InteractivePrompts.ADDITIONAL_INPUT_PROMPT;
   promptInstructionInit = InteractivePrompts.PROMPT_INSTRUCTION_INIT;
 

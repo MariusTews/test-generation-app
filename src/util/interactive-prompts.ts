@@ -1,7 +1,7 @@
 import Constants from './constants';
 
 export default class InteractivePrompts {
-  static readonly E2E_PROMPT_INIT =
+  static readonly E2E_PROMPT_INIT_INTERACTIVE =
     'This is the start of a new, isolated conversation. ' +
     'Use the value ' +
     Constants.TEMPERATURE +
@@ -23,7 +23,7 @@ export default class InteractivePrompts {
     'Use code comments as placeholders to mark places where additional code needs to be inserted. ' +
     'Here is my code:\n';
 
-  static readonly UNIT_PROMPT_INIT =
+  static readonly UNIT_PROMPT_INIT_INTERACTIVE =
     'This is the start of a new, isolated conversation. ' +
     'Use the value ' +
     Constants.TEMPERATURE +
