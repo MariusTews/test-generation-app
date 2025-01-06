@@ -16,7 +16,7 @@ export default class InteractivePrompts {
     'Use page.goto("http://localhost:4200/[parameters]") to navigate to a fitting starting page for the test after you have mocked all HTTP requests. ' +
     'Use locators such as getByText, getByRole or getByPlaceholder. ' +
     'Add meaningful assertions by using "await expect..." statements at the end of the test. ' +
-    'Set the test timeout limit to 15 seconds by using the setTimeout method. ' +
+    'Set the test timeout limit to 15 seconds by using "test.setTimeout(15000)" after the imports. ' +
     'Return only this test code and use my further instructions to build and improve the test step by step. ' +
     'Only add more tests when I give you an instruction to do so. ' +
     'Do not add any other explanation or text, only return the test code. ' +
