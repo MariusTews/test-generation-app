@@ -220,7 +220,7 @@ export class HomeComponent {
                   (parts.length === 3 && parts[1] === 'module') ||
                   (parts.length === 4 && parts[2] === 'spec')
                 ) ||
-                parts[0] === 'app-routing'
+                parts[0].includes('routing')
               ) {
                 const item: OtherCodeItem = new OtherCodeItem();
                 item.name = file.name;
