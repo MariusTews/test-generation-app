@@ -192,20 +192,15 @@ export class HomeComponent {
       reader.onload = (e) => {
         if (e.target != null) {
           const parts: string[] = file.name.split('.');
+          const filePath: string = this.removeEndFromPath(
+            file.webkitRelativePath
+          );
           if (this.isComponentFile(parts)) {
             let addTo = null;
             for (let item of this.autoDetectComponentFiles) {
               if (item.name === parts[0]) {
-                if (
-                  (parts[2] === 'html' && item.HTMLFile) ||
-                  (parts[2] === 'ts' && item.TSFile)
-                ) {
-                  parts[0] =
-                    parts[0] +
-                    ' (' +
-                    this.removeTypeFromPath(file.webkitRelativePath) +
-                    ')';
-                  addTo = null;
+                if (filePath !== item.path) {
+                  parts[0] = parts[0] + ' (' + filePath + ')';
                 } else {
                   addTo = item;
                 }
@@ -214,6 +209,7 @@ export class HomeComponent {
             const item: ComponentItem =
               addTo === null ? new ComponentItem() : addTo;
             item.name = parts[0];
+            item.path = filePath;
             if (parts[2] === 'html') {
               item.HTMLFile = e.target.result;
             } else if (parts[2] === 'ts') {
@@ -595,18 +591,16 @@ export class HomeComponent {
     link.click();
   }
 
-  removeTypeFromPath(path: string): string {
-    let dotCount: number = 0;
-    let count: number = 0;
-    while (count < 100) {
-      if (path[path.length - 1] === '.') {
-        dotCount++;
+  removeEndFromPath(path: string): string {
+    let slashCount: number = 0;
+    while (path.length > 0) {
+      if (path[path.length - 1] === '/') {
+        slashCount++;
       }
       path = path.substring(0, path.length - 1);
-      if (dotCount === 2) {
+      if (slashCount === 1) {
         break;
       }
-      count++;
     }
     return path;
   }
