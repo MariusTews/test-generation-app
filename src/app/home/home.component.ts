@@ -596,15 +596,17 @@ export class HomeComponent {
   }
 
   removeTypeFromPath(path: string): string {
+    let dotCount: number = 0;
     let count: number = 0;
-    while (true) {
+    while (count < 100) {
       if (path[path.length - 1] === '.') {
-        count++;
+        dotCount++;
       }
       path = path.substring(0, path.length - 1);
-      if (count === 2) {
+      if (dotCount === 2) {
         break;
       }
+      count++;
     }
     return path;
   }
