@@ -167,6 +167,7 @@ export class HomeComponent {
     } catch (e) {
       this.disableGenerateButton = false;
       this.outputText = 'Something went wrong!';
+      console.log(JSON.stringify(e));
     }
   }
 
@@ -195,7 +196,19 @@ export class HomeComponent {
             let addTo = null;
             for (let item of this.autoDetectComponentFiles) {
               if (item.name === parts[0]) {
-                addTo = item;
+                if (
+                  (parts[2] === 'html' && item.HTMLFile) ||
+                  (parts[2] === 'ts' && item.TSFile)
+                ) {
+                  parts[0] =
+                    parts[0] +
+                    ' (' +
+                    this.removeTypeFromPath(file.webkitRelativePath) +
+                    ')';
+                  addTo = null;
+                } else {
+                  addTo = item;
+                }
               }
             }
             const item: ComponentItem =
@@ -580,6 +593,20 @@ export class HomeComponent {
     link.href = data;
     link.download = 'test.spec.ts';
     link.click();
+  }
+
+  removeTypeFromPath(path: string): string {
+    let count: number = 0;
+    while (true) {
+      if (path[path.length - 1] === '.') {
+        count++;
+      }
+      path = path.substring(0, path.length - 1);
+      if (count === 2) {
+        break;
+      }
+    }
+    return path;
   }
 
   private _injector = inject(Injector);
