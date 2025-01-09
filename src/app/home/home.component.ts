@@ -164,10 +164,12 @@ export class HomeComponent {
       this.instructionForm.setValue('');
       this.disableGenerateButton = false;
       this.outputReceived = true;
-    } catch (e) {
+    } catch (e: any) {
       this.disableGenerateButton = false;
-      this.outputText = 'Something went wrong!';
-      console.log(JSON.stringify(e));
+      this.outputText = e.status
+        ? 'Something went wrong! (Error ' + e.status + ')'
+        : 'Something went wrong!';
+      this.chat = this.model.startChat();
     }
   }
 
